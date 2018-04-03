@@ -4,7 +4,14 @@ include: "*.view.lkml"         # include all views in this project
 include: "*.dashboard.lookml"  # include all dashboards in this project
 
 explore: accidents {
-
+  join: casualties {
+    sql_on: ${accidents.accident_index} = ${casualties.accident_index} ;;
+    relationship: one_to_one
+  }
+  join: vehicles {
+      sql_on: ${vehicles.accident_index} = ${accidents.accident_index} ;;
+      relationship: one_to_one
+  }
 
 }
 

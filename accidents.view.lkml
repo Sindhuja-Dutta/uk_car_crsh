@@ -23,6 +23,7 @@ view: accidents {
 
   dimension: accident_index {
     type: string
+    primary_key: yes
     sql: ${TABLE}.Accident_Index ;;
   }
 
