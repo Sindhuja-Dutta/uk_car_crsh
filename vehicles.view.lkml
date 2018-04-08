@@ -23,7 +23,24 @@ view: vehicles {
 
   dimension: driver_home_area_type {
     type: string
-    sql: ${TABLE}.Driver_Home_Area_Type ;;
+    case: {
+      when: {
+        sql: cast(${TABLE}.driver_home_area_type as int64) = 1 ;;
+        label: "Urban area"
+      }
+      when: {
+        sql: cast(${TABLE}.driver_home_area_type as int64) = 2 ;;
+        label: "Small town"
+      }
+      when: {
+        sql: cast(${TABLE}.driver_home_area_type as int64) = 3 ;;
+        label: "Rural area"
+      }
+      # Possibly more when statements
+      else: "Unknown"
+    }
+
+ #   sql: ${TABLE}.Driver_Home_Area_Type ;;
   }
 
   dimension: driver_imd_decile {
@@ -32,7 +49,7 @@ view: vehicles {
   }
 
   dimension: engine_capacity {
-    type: string
+    type: number
     sql: ${TABLE}.Engine_Capacity ;;
   }
 
@@ -44,12 +61,112 @@ view: vehicles {
 
   dimension: hit_object_in_carriageway {
     type: string
-    sql: ${TABLE}.Hit_Object_in_Carriageway ;;
+    case: {
+      when: {
+        sql: cast(${TABLE}.hit_object_in_carriageway as int64) = 0 ;;
+        label: "None"
+      }
+      when: {
+        sql: cast(${TABLE}.hit_object_in_carriageway as int64) = 1 ;;
+        label: "Previous accident"
+      }
+      when: {
+        sql: cast(${TABLE}.hit_object_in_carriageway as int64) = 2 ;;
+        label: "Roadworks"
+      }
+      when: {
+        sql: cast(${TABLE}.hit_object_in_carriageway as int64) = 4 ;;
+        label: "Parked vehicle"
+      }
+      when: {
+        sql: cast(${TABLE}.hit_object_in_carriageway as int64) = 5 ;;
+        label: "Bridge (roof)"
+      }
+      when: {
+        sql: cast(${TABLE}.hit_object_in_carriageway as int64) = 6 ;;
+        label: "Bridge (side)"
+      }
+      when: {
+        sql: cast(${TABLE}.hit_object_in_carriageway as int64) = 7 ;;
+        label: "Bollard or refuge"
+      }
+      when: {
+        sql: cast(${TABLE}.hit_object_in_carriageway as int64) = 8 ;;
+        label: "Open door of vehicle"
+      }
+      when: {
+        sql: cast(${TABLE}.hit_object_in_carriageway as int64) = 9 ;;
+        label: "Central island of roundabout"
+      }
+      when: {
+        sql: cast(${TABLE}.hit_object_in_carriageway as int64) = 10 ;;
+        label: "Kerb"
+      }
+      when: {
+        sql: cast(${TABLE}.hit_object_in_carriageway as int64) = 11 ;;
+        label: "Other object"
+      }
+      when: {
+        sql: cast(${TABLE}.hit_object_in_carriageway as int64) = 11 ;;
+        label: "Any animal (other than ridden horse)"
+      }
+      else: "Unknown"
+      }
   }
 
   dimension: hit_object_off_carriageway {
     type: string
-    sql: ${TABLE}.Hit_Object_off_Carriageway ;;
+    case: {
+      when: {
+        sql: cast(${TABLE}.hit_object_off_carriageway as int64) = 0 ;;
+        label: "None"
+      }
+      when: {
+        sql: cast(${TABLE}.hit_object_off_carriageway as int64) = 1 ;;
+        label: "Road sign or traffic signal"
+      }
+      when: {
+        sql: cast(${TABLE}.hit_object_off_carriageway as int64) = 2 ;;
+        label: "Lamp post"
+      }
+      when: {
+        sql: cast(${TABLE}.hit_object_off_carriageway as int64) = 3 ;;
+        label: "Telegraph or electricity pole"
+      }
+      when: {
+        sql: cast(${TABLE}.hit_object_off_carriageway as int64) = 4 ;;
+        label: "Tree"
+      }
+      when: {
+        sql: cast(${TABLE}.hit_object_off_carriageway as int64) = 5 ;;
+        label: "Bus stop or bus shelter"
+      }
+      when: {
+        sql: cast(${TABLE}.hit_object_off_carriageway as int64) = 6 ;;
+        label: "Central crash barrier"
+      }
+      when: {
+        sql: cast(${TABLE}.hit_object_off_carriageway as int64) = 7 ;;
+        label: "Near/offside crash barrier"
+      }
+      when: {
+        sql: cast(${TABLE}.hit_object_off_carriageway as int64) = 8 ;;
+        label: "Submerged in water"
+      }
+      when: {
+        sql: cast(${TABLE}.hit_object_off_carriageway as int64) = 9 ;;
+        label: "Entered ditch"
+      }
+      when: {
+        sql: cast(${TABLE}.hit_object_off_carriageway as int64) = 10 ;;
+        label: "Other permanent object"
+      }
+      when: {
+        sql: cast(${TABLE}.hit_object_off_carriageway as int64) = 11 ;;
+        label: "Wall or fence"
+      }
+      else: "Unknown"
+      }
   }
 
   dimension: journey_purpose_of_driver {
@@ -77,7 +194,38 @@ view: vehicles {
 
   dimension: skidding_and_overturning {
     type: string
-    sql: ${TABLE}.Skidding_and_Overturning ;;
+    case: {
+      when: {
+        sql: cast(${TABLE}.skidding_and_overturning as int64) = 0 ;;
+        label: "No Skid"
+      }
+
+      when: {
+        sql: cast(${TABLE}.skidding_and_overturning as int64) = 1 ;;
+        label: "Skidded"
+        }
+
+      when: {
+        sql: cast(${TABLE}.skidding_and_overturning as int64) = 2 ;;
+        label: "Skidded and overturned"
+        }
+
+      when: {
+        sql: cast(${TABLE}.skidding_and_overturning as int64) = 3 ;;
+        label: "Jackknifed"
+        }
+
+      when: {
+        sql: cast(${TABLE}.skidding_and_overturning as int64) = 4 ;;
+        label: "Jackknifed and overturned"
+        }
+
+      when: {
+        sql: cast(${TABLE}.skidding_and_overturning as int64) = 5 ;;
+        label: "Overturned"
+        }
+    else: "Unknown"
+        }
   }
 
   dimension: towing_and_articulation {
@@ -115,11 +263,26 @@ view: vehicles {
 
   dimension: was_vehicle_left_hand_drive {
     type: string
-    sql: ${TABLE}.Was_Vehicle_Left_Hand_Drive ;;
+    case: {
+      when: {
+        sql: cast(${TABLE}.skidding_and_overturning as int64) = 1 ;;
+        label: "No"
+      }
+      when: {
+        sql: cast(${TABLE}.skidding_and_overturning as int64) = 2 ;;
+        label: "Yes"
+      }
+      else: "Unknown"
+      }
   }
 
   measure: count {
     type: count
     drill_fields: []
+  }
+  measure: average_engine_capacity{
+    type: average
+    sql: cast(vehicles.Engine_Capacity as int64) ;;
+    value_format_name: decimal_0
   }
 }

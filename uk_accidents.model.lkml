@@ -59,8 +59,4 @@ explore: vehicles {
   }
 
 
-
-
-
-
 }
