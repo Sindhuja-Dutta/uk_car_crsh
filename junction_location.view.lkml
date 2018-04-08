@@ -2,6 +2,7 @@ view: junction_location {
   sql_table_name: UK_Car_Crashes.Junction_Location ;;
 
   dimension: code {
+    hidden: yes
     type: number
     sql: ${TABLE}.code ;;
   }
@@ -13,6 +14,7 @@ view: junction_location {
   }
 
   measure: count {
+    hidden: yes
     type: count
     drill_fields: []
   }

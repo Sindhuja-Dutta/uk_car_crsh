@@ -37,6 +37,7 @@ view: vehicles {
   }
 
   dimension: first_point_of_impact {
+    hidden: yes
     type: string
     sql: ${TABLE}.First_Point_of_Impact ;;
   }
@@ -52,11 +53,13 @@ view: vehicles {
   }
 
   dimension: journey_purpose_of_driver {
+    hidden: yes
     type: string
     sql: ${TABLE}.Journey_Purpose_of_Driver ;;
   }
 
   dimension: junction_location {
+    hidden: yes
     type: string
     sql: ${TABLE}.Junction_Location ;;
   }
@@ -67,6 +70,7 @@ view: vehicles {
   }
 
   dimension: sex_of_driver {
+    hidden: yes
     type: string
     sql: ${TABLE}.Sex_of_Driver ;;
   }
