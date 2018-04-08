@@ -7,6 +7,7 @@ view: junction_location {
   }
 
   dimension: label {
+    label: "Junction Location"
     type: string
     sql: ${TABLE}.label ;;
   }

@@ -87,11 +87,13 @@ view: vehicles {
   }
 
   dimension: vehicle_location_restricted_lane {
+    hidden: yes
     type: string
     sql: ${TABLE}.Vehicle_Location_Restricted_Lane ;;
   }
 
   dimension: vehicle_manoeuvre {
+    hidden: yes
     type: string
     sql: ${TABLE}.Vehicle_Manoeuvre ;;
   }
@@ -102,6 +104,7 @@ view: vehicles {
   }
 
   dimension: vehicle_type {
+    hidden: yes
     type: string
     sql: ${TABLE}.Vehicle_Type ;;
   }
