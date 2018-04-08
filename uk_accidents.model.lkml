@@ -27,7 +27,7 @@ explore: vehicles {
   }
   join:  vehicle_manoeuvre{
   view_label: "Vehicles"
-  sql_on: ${vehicles.vehicle_manoeuvre} = ${vehicle_manoeuvre.code}  ;;
+  sql_on: cast(${vehicles.vehicle_manoeuvre} as int64) = ${vehicle_manoeuvre.code}  ;;
   relationship: many_to_one
   }
 

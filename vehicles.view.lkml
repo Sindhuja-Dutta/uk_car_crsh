@@ -12,13 +12,13 @@ view: vehicles {
   }
 
   dimension: age_of_driver {
-    type: string
-    sql: ${TABLE}.Age_of_Driver ;;
+    type: number
+    sql: cast(${TABLE}.Age_of_Driver as int64) ;;
   }
 
   dimension: age_of_vehicle {
-    type: string
-    sql: ${TABLE}.Age_of_Vehicle ;;
+    type: number
+    sql: cast(${TABLE}.Age_of_Vehicle as int64) ;;
   }
 
   dimension: driver_home_area_type {
@@ -182,8 +182,60 @@ view: vehicles {
   }
 
   dimension: propulsion_code {
+    label: "Propulsion Type"
     type: string
-    sql: ${TABLE}.Propulsion_Code ;;
+    case: {
+      when: {
+        sql: cast(${TABLE}.propulsion_code as int64) = 1 ;;
+        label: "Petrol"
+      }
+      when: {
+        sql: cast(${TABLE}.propulsion_code as int64) = 2 ;;
+        label: "Diesel"
+      }
+      when: {
+        sql: cast(${TABLE}.propulsion_code as int64) = 3 ;;
+        label: "Electric"
+      }
+      when: {
+        sql: cast(${TABLE}.propulsion_code as int64) = 4 ;;
+        label: "Steam"
+      }
+      when: {
+        sql: cast(${TABLE}.propulsion_code as int64) = 5 ;;
+        label: "Gas"
+      }
+      when: {
+        sql: cast(${TABLE}.propulsion_code as int64) = 6 ;;
+        label: "Petrol/Gas (LPG)"
+      }
+      when: {
+        sql: cast(${TABLE}.propulsion_code as int64) = 7 ;;
+        label: "Gas/Bi-Fuel"
+      }
+      when: {
+        sql: cast(${TABLE}.propulsion_code as int64) = 8 ;;
+        label: "Hybrid Electric"
+      }
+      when: {
+        sql: cast(${TABLE}.propulsion_code as int64) = 9 ;;
+        label: "Gas/Diesel"
+      }
+      when: {
+        sql: cast(${TABLE}.propulsion_code as int64) = 10 ;;
+        label: "New fuel technology"
+      }
+      when: {
+        sql: cast(${TABLE}.propulsion_code as int64) = 11 ;;
+        label: "Fuel cells"
+      }
+      when: {
+        sql: cast(${TABLE}.propulsion_code as int64) = 0 ;;
+        label: "Electric Diesel"
+      }
+      else: "Unknown"
+      }
+
   }
 
   dimension: sex_of_driver {
@@ -230,7 +282,33 @@ view: vehicles {
 
   dimension: towing_and_articulation {
     type: string
-    sql: ${TABLE}.Towing_and_Articulation ;;
+    case: {
+      when: {
+        sql: cast(${TABLE}.towing_and_articulation as int64) = 0 ;;
+        label: "None"
+      }
+      when: {
+        sql: cast(${TABLE}.towing_and_articulation as int64) = 1 ;;
+        label: "Articulated vehicle"
+      }
+      when: {
+        sql: cast(${TABLE}.towing_and_articulation as int64) = 2 ;;
+        label: "Double or multiple trailer"
+      }
+      when: {
+        sql: cast(${TABLE}.towing_and_articulation as int64) = 3 ;;
+        label: "Caravan"
+      }
+      when: {
+        sql: cast(${TABLE}.towing_and_articulation as int64) = 4 ;;
+        label: "Single Traile"
+      }
+      when: {
+        sql: cast(${TABLE}.towing_and_articulation as int64) = 5 ;;
+        label: "Other tow"
+      }
+      else: "unknown"
+    }
   }
 
   dimension: vehicle_leaving_carriageway {
@@ -284,5 +362,15 @@ view: vehicles {
     type: average
     sql: cast(vehicles.Engine_Capacity as int64) ;;
     value_format_name: decimal_0
+  }
+  measure: average_age_of_driver {
+    type: average
+    sql: cast(vehicles.age_of_driver as int64) ;;
+    value_format_name: decimal_0
+  }
+  measure: average_age_of_vehicle {
+    type: average
+    sql: cast(vehicles.age_of_vehicle as int64);;
+    value_format_name: decimal_1
   }
 }
