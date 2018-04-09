@@ -1,6 +1,12 @@
 view: vehicles {
   sql_table_name: UK_Car_Crashes.Vehicles ;;
 
+  dimension: primary_key {
+    hidden: yes
+    primary_key: yes
+    sql: CONCAT(${TABLE}.Accident_Index, ${TABLE}.vehicle_reference) ;;
+  }
+
   dimension: accident_index {
     type: string
     sql: ${TABLE}.Accident_Index ;;
@@ -373,4 +379,5 @@ view: vehicles {
     sql: cast(vehicles.age_of_vehicle as int64);;
     value_format_name: decimal_1
   }
+
 }

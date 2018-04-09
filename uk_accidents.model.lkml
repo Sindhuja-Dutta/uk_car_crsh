@@ -9,7 +9,7 @@ explore: accidents {
     relationship: one_to_one
   }
   join: vehicles {
-      sql_on: cast(${vehicles.accident_index} as INT64)  = ${accidents.accident_index} ;;
+      sql_on: ${vehicles.accident_index}  = ${accidents.accident_index} ;;
       relationship: one_to_one
   }
 
