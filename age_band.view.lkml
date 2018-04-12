@@ -2,11 +2,12 @@ view: age_band {
   sql_table_name: UK_Car_Crashes.Age_Band ;;
 
   dimension: code {
+    hidden: yes
     type: number
     sql: ${TABLE}.code ;;
   }
 
-  dimension: label {
+  dimension: age_band {
     type: string
     sql: ${TABLE}.label ;;
   }

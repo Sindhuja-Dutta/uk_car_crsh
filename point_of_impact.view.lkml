@@ -7,7 +7,7 @@ view: point_of_impact {
     sql: ${TABLE}.code ;;
   }
 
-  dimension: label {
+  dimension: first_impact_label {
     label: "First Point of Impact"
     type: string
     sql: ${TABLE}.label ;;

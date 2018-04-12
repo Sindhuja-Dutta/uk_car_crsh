@@ -8,16 +8,23 @@ explore: accidents {
     sql_on: ${accidents.accident_index} = ${casualties.accident_index} ;;
     relationship: one_to_one
   }
-  join: vehicles {
-      sql_on: ${vehicles.accident_index}  = ${accidents.accident_index} ;;
-      relationship: one_to_one
+#   join: vehicles {
+#     from: vehicles
+#       sql_on: ${vehicles.accident_index}  = ${accidents.accident_index} ;;
+#       relationship: one_to_one
+#   }
+  join: vehicle_pdt {
+    sql_on: ${vehicle_pdt.accident_index} = ${accidents.accident_index} ;;
+    relationship: many_to_one
   }
-
 }
 
-
+# explore: vehicle {
+#   from: vehicles
+# }
 
 explore: vehicles {
+  #extension: required
   join: vehicle_type
 
   {
@@ -57,6 +64,49 @@ explore: vehicles {
   sql_on: cast(${vehicles.sex_of_driver} as int64) = ${sex_of_driver.code} ;;
   relationship: many_to_one
   }
+  join: age_band {
+    view_label: "Vehicles"
+    sql_on: cast(${vehicles.age_band_of_driver} as int64) = ${age_band.code} ;;
+    relationship: many_to_one
+  }
+}
 
+explore: casualties {
+
+  join: casualty_class {
+  view_label: "Casualties"
+  sql_on: cast(${casualties.casualty_class} as int64) = ${casualty_class.code} ;;
+  relationship: many_to_one
+  }
+  join: casualty_type {
+  view_label: "Casualties"
+  sql_on: cast(${casualties.casualty_type} as int64) = ${casualty_type.code} ;;
+  relationship: many_to_one
+  }
+  join: casualty_severity {
+  view_label: "Casualties"
+  sql_on: cast(${casualties.casualty_severity} as int64) = ${casualty_severity.code} ;;
+  relationship: many_to_one
+  }
+  join: ped_location {
+  view_label: "Casualties"
+  sql_on: cast(${casualties.pedestrian_location} as int64) = ${ped_location.code} ;;
+  relationship: many_to_one
+  }
+  join: ped_movement {
+  view_label: "Casualties"
+  sql_on: cast(${casualties.pedestrian_movement} as int64) = ${ped_movement.code} ;;
+  relationship: many_to_one
+  }
+  join: sex_of_driver {
+  view_label: "Casualties"
+  sql_on: cast(${casualties.sex_of_casualty} as int64) = ${sex_of_driver.code} ;;
+  relationship: many_to_one
+  }
+  join: age_band {
+  view_label: "Casualties"
+  sql_on: cast(${casualties.age_band_of_casualty} as int64) = ${age_band.code} ;;
+  relationship: many_to_one
+  }
 
 }

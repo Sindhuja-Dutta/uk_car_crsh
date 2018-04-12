@@ -7,6 +7,7 @@ view: casualties {
   }
 
   dimension: age_band_of_casualty {
+    hidden: yes
     type: string
     sql: ${TABLE}.Age_Band_of_Casualty ;;
   }
@@ -27,14 +28,30 @@ view: casualties {
   }
 
   dimension: casualty_class {
+    hidden: yes
     type: string
     sql: ${TABLE}.Casualty_Class ;;
   }
 
   dimension: casualty_home_area_type {
     type: string
-    sql: ${TABLE}.Casualty_Home_Area_Type ;;
-  }
+    case: {
+      when: {
+        sql: cast(${TABLE}.casualty_home_area_type as int64) = 1 ;;
+        label: "Urban area"
+      }
+      when: {
+        sql: cast(${TABLE}.casualty_home_area_type as int64) = 2 ;;
+        label: "Small town"
+      }
+      when: {
+        sql: cast(${TABLE}.casualty_home_area_type as int64) = 3 ;;
+        label: "Rural area"
+      }
+      # Possibly more when statements
+      else: "Unknown"
+    }
+    }
 
   dimension: casualty_reference {
     type: string
@@ -42,21 +59,25 @@ view: casualties {
   }
 
   dimension: casualty_severity {
+    hidden: yes
     type: string
     sql: ${TABLE}.Casualty_Severity ;;
   }
 
   dimension: casualty_type {
+    hidden: yes
     type: string
     sql: ${TABLE}.Casualty_Type ;;
   }
 
   dimension: pedestrian_location {
+    hidden: yes
     type: string
     sql: ${TABLE}.Pedestrian_Location ;;
   }
 
   dimension: pedestrian_movement {
+    hidden: yes
     type: string
     sql: ${TABLE}.Pedestrian_Movement ;;
   }
@@ -67,6 +88,7 @@ view: casualties {
   }
 
   dimension: sex_of_casualty {
+    hidden: yes
     type: string
     sql: ${TABLE}.Sex_of_Casualty ;;
   }

@@ -3,10 +3,11 @@ view: casualty_severity {
 
   dimension: code {
     type: number
+    hidden: yes
     sql: ${TABLE}.code ;;
   }
 
-  dimension: label {
+  dimension: casualty_severity {
     type: string
     sql: ${TABLE}.label ;;
   }

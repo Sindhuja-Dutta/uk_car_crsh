@@ -13,6 +13,7 @@ view: vehicles {
   }
 
   dimension: age_band_of_driver {
+    hidden:  yes
     type: string
     sql: ${TABLE}.Age_Band_of_Driver ;;
   }
@@ -379,5 +380,19 @@ view: vehicles {
     sql: cast(vehicles.age_of_vehicle as int64);;
     value_format_name: decimal_1
   }
+  measure: gender_known_count {
+    type: count
+    filters: {
+      field: sex_of_driver
+      value: "1, 2"
+    }
+  }
+#   measure: count_of_female {
+#     type: count
+#     filters: {
+#       field: sex_of_driver
+#       value: "2"
+#     }
+#   }
 
 }
