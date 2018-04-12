@@ -320,7 +320,48 @@ view: vehicles {
 
   dimension: vehicle_leaving_carriageway {
     type: string
-    sql: ${TABLE}.Vehicle_Leaving_Carriageway ;;
+     case: {
+      when: {
+      sql: cast(${TABLE}.vehicle_leaving_carriageway as int64) = 0 ;;
+      label: "Did not leave the road"
+      }
+      when: {
+        sql: cast(${TABLE}.vehicle_leaving_carriageway as int64) = 1 ;;
+        label: "Nearside"
+      }
+      when: {
+        sql: cast(${TABLE}.vehicle_leaving_carriageway as int64) = 2 ;;
+        label: "Nearside and rebounded"
+      }
+      when: {
+        sql: cast(${TABLE}.vehicle_leaving_carriageway as int64) = 3 ;;
+        label: "Straight ahead at junction"
+      }
+      when: {
+        sql: cast(${TABLE}.vehicle_leaving_carriageway as int64) = 4 ;;
+        label: "Offside to central reservation"
+      }
+      when: {
+        sql: cast(${TABLE}.vehicle_leaving_carriageway as int64) = 5 ;;
+        label: "Offside to central reservation and rebounded"
+      }
+      when: {
+        sql: cast(${TABLE}.vehicle_leaving_carriageway as int64) = 6 ;;
+        label: "Offside - crossed central reservation"
+      }
+      when: {
+        sql: cast(${TABLE}.vehicle_leaving_carriageway as int64) = 7 ;;
+        label: "Offside"
+      }
+      when: {
+        sql: cast(${TABLE}.vehicle_leaving_carriageway as int64) = 8 ;;
+        label: "Offside and rebounded"
+      }
+      when: {
+        sql: cast(${TABLE}.vehicle_leaving_carriageway as int64) = -1 ;;
+        label: "No data"
+      }
+  }
   }
 
   dimension: vehicle_location_restricted_lane {
