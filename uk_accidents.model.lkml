@@ -1,4 +1,4 @@
-connection: "taxi_test"
+connection: "gavin_dcl_thesis"
 
 include: "*.view.lkml"         # include all views in this project
 include: "*.dashboard.lookml"  # include all dashboards in this project
