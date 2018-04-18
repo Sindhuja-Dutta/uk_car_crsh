@@ -159,6 +159,7 @@ view: accidents {
   }
 
   dimension: number_of_casualties {
+    hidden: yes
     type: number
     sql: ${TABLE}.Number_of_Casualties ;;
   }
@@ -221,5 +222,10 @@ view: accidents {
   measure: count {
     type: count
     drill_fields: []
+  }
+
+  measure: Sum_of_casualties{
+    type: sum
+    sql: ${TABLE}.Number_of_Casualties ;;
   }
 }
