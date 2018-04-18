@@ -8,6 +8,12 @@ explore: accidents {
     sql_on: ${accidents.accident_index} = ${casualties.accident_index} ;;
     relationship: one_to_one
   }
+  join: accident_severity {
+    sql_on: ${accidents.accident_severity} = ${accident_severity.code} ;;
+    relationship: many_to_one
+  }
+ # join:  {}
+
 #   join: vehicles {
 #     from: vehicles
 #       sql_on: ${vehicles.accident_index}  = ${accidents.accident_index} ;;

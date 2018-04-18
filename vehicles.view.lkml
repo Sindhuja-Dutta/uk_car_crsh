@@ -402,6 +402,11 @@ view: vehicles {
       }
   }
 
+  dimension: Current_hour {
+    type: date_hour
+    sql: DATETIME_TRUNC(CURRENT_DATE, hour) ;;
+  }
+
   measure: count {
     type: count
     drill_fields: []
@@ -428,6 +433,7 @@ view: vehicles {
       value: "1, 2"
     }
   }
+
 #   measure: count_of_female {
 #     type: count
 #     filters: {
