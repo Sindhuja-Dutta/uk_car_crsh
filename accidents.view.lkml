@@ -33,8 +33,45 @@ view: accidents {
   }
 
   dimension: carriageway_hazards {
-    type: number
-    sql: ${TABLE}.Carriageway_Hazards ;;
+    type: string
+    case: {
+      when: {
+        sql: cast(${TABLE}.carriageway_hazards as int64) = 0 ;;
+        label: "None"
+      }
+      when: {
+        sql: cast(${TABLE}.carriageway_hazards as int64) = 1 ;;
+        label: "Vehicle on road"
+      }
+      when: {
+        sql: cast(${TABLE}.carriageway_hazards as int64) = 2 ;;
+        label: "Other object on road"
+      }
+      when: {
+        sql: cast(${TABLE}.carriageway_hazards as int64) = 3 ;;
+        label: "Previous accident"
+      }
+      when: {
+        sql: cast(${TABLE}.carriageway_hazards as int64) = 4 ;;
+        label: "Dog on road"
+      }
+      when: {
+        sql: cast(${TABLE}.carriageway_hazards as int64) = 5 ;;
+        label: "Other animal on the road"
+      }
+      when: {
+        sql: cast(${TABLE}.carriageway_hazards as int64) = 6 ;;
+        label: "Pedestrian on the road"
+      }
+      when: {
+        sql: cast(${TABLE}.carriageway_hazards as int64) = 7 ;;
+        label: "Any animal on the road (except ridden horse)"
+      }
+      when: {
+        sql: cast(${TABLE}.carriageway_hazards as int64) = -1 ;;
+        label: "Unknown"
+      }
+    }
   }
 
   dimension_group: date {
@@ -74,7 +111,20 @@ view: accidents {
 
   dimension: latitude {
     type: number
+    hidden: yes
     sql: ${TABLE}.Latitude ;;
+  }
+
+  dimension: longitude {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.Longitude ;;
+  }
+
+  dimension: location {
+    type: location
+    sql_latitude: ${latitude} ;;
+    sql_longitude: ${longitude} ;;
   }
 
   dimension: light_conditions {
@@ -83,8 +133,9 @@ view: accidents {
   }
 
   dimension: local_authority__district_ {
-    type: number
-    sql: ${TABLE}.Local_Authority__District_ ;;
+    type: string
+#     sql: ${TABLE}.Local_Authority__District_ ;;
+    sql: (SELECT label FROM `UK_Car_Crashes.Local_Authority_District` WHERE code = ${TABLE}.Local_Authority__District_) ;;
   }
 
   dimension: local_authority__highway_ {
@@ -100,11 +151,6 @@ view: accidents {
   dimension: location_northing_osgr {
     type: number
     sql: ${TABLE}.Location_Northing_OSGR ;;
-  }
-
-  dimension: longitude {
-    type: number
-    sql: ${TABLE}.Longitude ;;
   }
 
   dimension: lsoa_of_accident_location {
