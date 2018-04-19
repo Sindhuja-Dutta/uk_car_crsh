@@ -2,24 +2,24 @@ view: accidents {
   sql_table_name: UK_Car_Crashes.Accidents ;;
 
   dimension: _1st_road_class {
-    type: number
-    sql: ${TABLE}._1st_Road_Class ;;
+    type: string
+    sql: (SELECT label FROM `UK_Car_Crashes.Road_Class` WHERE code = _1st_Road_Class) ;;
   }
 
-  dimension: _1st_road_number {
-    type: number
-    sql: ${TABLE}._1st_Road_Number ;;
-  }
+#   dimension: _1st_road_number {
+#     type: number
+#     sql: ${TABLE}._1st_Road_Number ;;
+#   }
 
   dimension: _2nd_road_class {
-    type: number
-    sql: ${TABLE}._2nd_Road_Class ;;
+    type: string
+    sql: (SELECT label FROM `UK_Car_Crashes.Road_Class` WHERE code = _2nd_Road_Class) ;;
   }
 
-  dimension: _2nd_road_number {
-    type: number
-    sql: ${TABLE}._2nd_Road_Number ;;
-  }
+#   dimension: _2nd_road_number {
+#     type: number
+#     sql: ${TABLE}._2nd_Road_Number ;;
+#   }
 
   dimension: accident_index {
     type: string
@@ -78,6 +78,13 @@ view: accidents {
     type: time
     timeframes: [
       raw,
+      day_of_month,
+      day_of_week,
+      week_of_year,
+      minute,
+      hour,
+      time_of_day,
+      month_name,
       date,
       week,
       month,
@@ -89,10 +96,10 @@ view: accidents {
     sql: ${TABLE}.Date ;;
   }
 
-  dimension: day_of_week {
-    type: number
-    sql: ${TABLE}.Day_of_Week ;;
-  }
+#   dimension: day_of_week {
+#     type: number
+#     sql: ${TABLE}.Day_of_Week ;;
+#   }
 
   dimension: did_police_officer_attend_scene_of_accident {
     type: number
@@ -100,8 +107,9 @@ view: accidents {
   }
 
   dimension: junction_control {
-    type: number
-    sql: ${TABLE}.Junction_Control ;;
+    type: string
+    sql: (SELECT label FROM `UK_Car_Crashes.Junction_Control` WHERE code = ${TABLE}.Junction_Control) ;;
+#    sql: ${TABLE}.Junction_Control ;;
   }
 
   dimension: junction_detail {
@@ -122,14 +130,16 @@ view: accidents {
   }
 
   dimension: location {
+    drill_fields: [location, weather_conditions, light_conditions, road_surface_conditions]
     type: location
     sql_latitude: ${latitude} ;;
     sql_longitude: ${longitude} ;;
   }
 
   dimension: light_conditions {
-    type: number
-    sql: ${TABLE}.Light_Conditions ;;
+    type: string
+#    sql: ${TABLE}.Light_Conditions ;;
+    sql:(SELECT label FROM `UK_Car_Crashes.Light_Conditions` WHERE code = ${TABLE}.Light_Conditions) ;;
   }
 
   dimension: local_authority__district_ {
@@ -140,23 +150,23 @@ view: accidents {
 
   dimension: local_authority__highway_ {
     type: string
-    sql: ${TABLE}.Local_Authority__Highway_ ;;
+    sql: (SELECT string_field_1 FROM `UK_Car_Crashes.Local_Authority_Highway` WHERE string_field_0 = ${TABLE}.Local_Authority__Highway_) ;;
   }
 
-  dimension: location_easting_osgr {
-    type: number
-    sql: ${TABLE}.Location_Easting_OSGR ;;
-  }
+#   dimension: location_easting_osgr {
+#     type: number
+#     sql: ${TABLE}.Location_Easting_OSGR ;;
+#   }
 
-  dimension: location_northing_osgr {
-    type: number
-    sql: ${TABLE}.Location_Northing_OSGR ;;
-  }
+#   dimension: location_northing_osgr {
+#     type: number
+#     sql: ${TABLE}.Location_Northing_OSGR ;;
+#   }
 
-  dimension: lsoa_of_accident_location {
-    type: string
-    sql: ${TABLE}.LSOA_of_Accident_Location ;;
-  }
+#   dimension: lsoa_of_accident_location {
+#     type: string
+#     sql: ${TABLE}.LSOA_of_Accident_Location ;;
+#   }
 
   dimension: number_of_casualties {
     hidden: yes
@@ -170,18 +180,18 @@ view: accidents {
   }
 
   dimension: pedestrian_crossing_human_control {
-    type: number
-    sql: ${TABLE}.Pedestrian_Crossing_Human_Control ;;
+    type: string
+    sql: (SELECT label FROM `UK_Car_Crashes.Ped_Cross_Human` WHERE code = ${TABLE}.Pedestrian_Crossing_Human_Control) ;;
   }
 
   dimension: pedestrian_crossing_physical_facilities {
-    type: number
-    sql: ${TABLE}.Pedestrian_Crossing_Physical_Facilities ;;
+    type: string
+    sql: (SELECT label FROM `UK_Car_Crashes.Ped_Cross_Physical` WHERE code = ${TABLE}.Pedestrian_Crossing_Physical_Facilities) ;;
   }
 
   dimension: police_force {
-    type: number
-    sql: ${TABLE}.Police_Force ;;
+    type: string
+    sql: (SELECT label FROM `UK_Car_Crashes.Police_Force` WHERE code = ${TABLE}.Police_Force) ;;
   }
 
   dimension: road_surface_conditions {
@@ -191,12 +201,49 @@ view: accidents {
 
   dimension: road_type {
     type: number
-    sql: ${TABLE}.Road_Type ;;
+    sql: (SELECT label FROM `UK_Car_Crashes.Road_Type` WHERE code = ${TABLE}.Road_Type) ;;
   }
 
   dimension: special_conditions_at_site {
-    type: number
-    sql: ${TABLE}.Special_Conditions_at_Site ;;
+    type: string
+    case: {
+      when: {
+        sql: cast(${TABLE}.Special_Conditions_at_Site as int64) = 0 ;;
+        label: "None"
+      }
+      when: {
+        sql: cast(${TABLE}.Special_Conditions_at_Site as int64) = 1 ;;
+        label: "Traffic signal - out"
+      }
+      when: {
+        sql: cast(${TABLE}.Special_Conditions_at_Site as int64) = 2 ;;
+        label: "Traffic signal part defective"
+      }
+      when: {
+        sql: cast(${TABLE}.Special_Conditions_at_Site as int64) = 3 ;;
+        label: "Road sign or marking defective or obscured"
+      }
+      when: {
+        sql: cast(${TABLE}.Special_Conditions_at_Site as int64) = 4 ;;
+        label: "Roadworks"
+      }
+      when: {
+        sql: cast(${TABLE}.Special_Conditions_at_Site as int64) = 6 ;;
+        label: "Oil or diesel"
+      }
+      when: {
+        sql: cast(${TABLE}.Special_Conditions_at_Site as int64) = 7 ;;
+        label: "Mud"
+      }
+      when: {
+        sql: cast(${TABLE}.Special_Conditions_at_Site as int64) = -1 ;;
+        label: "Unknown"
+      }
+      when: {
+        sql: cast(${TABLE}.Special_Conditions_at_Site as int64) = 5 ;;
+        label: "Road surface defective"
+      }
+    }
   }
 
   dimension: speed_limit {
@@ -210,13 +257,23 @@ view: accidents {
   }
 
   dimension: urban_or_rural_area {
-    type: number
-    sql: ${TABLE}.Urban_or_Rural_Area ;;
+    type: string
+    sql: (SELECT label FROM `UK_Car_Crashes.Urban_Rural` WHERE code = ${TABLE}.Urban_or_Rural_Area) ;;
   }
 
   dimension: weather_conditions {
-    type: number
-    sql: ${TABLE}.Weather_Conditions ;;
+    type: string
+    sql: CASE WHEN ${TABLE}.Weather_Conditions = 1 THEN "Fine no high winds"
+              WHEN ${TABLE}.Weather_Conditions = 2 THEN "Raining no high winds"
+              WHEN ${TABLE}.Weather_Conditions = 3 THEN "Snowing no high winds"
+              WHEN ${TABLE}.Weather_Conditions = 4 THEN "Fine + high winds"
+              WHEN ${TABLE}.Weather_Conditions = 5 THEN "Raining + high winds"
+              WHEN ${TABLE}.Weather_Conditions = 6 THEN "Snowing + high winds"
+              WHEN ${TABLE}.Weather_Conditions = 7 THEN "Fog or mist"
+              WHEN ${TABLE}.Weather_Conditions = 8 THEN "Other"
+              WHEN ${TABLE}.Weather_Conditions = 9 THEN "Unknown"
+              WHEN ${TABLE}.Weather_Conditions = -1 THEN "  Data missing or out of range"
+              ELSE "UNKNOWN" END ;;
   }
 
   measure: count {
