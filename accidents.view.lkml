@@ -28,8 +28,8 @@ view: accidents {
   }
 
   dimension: accident_severity {
-    type: number
-    sql: ${TABLE}.Accident_Severity ;;
+    type: string
+    sql: (SELECT label FROM `UK_Car_Crashes.Accident_Severity` WHERE code = ${TABLE}.Accident_Severity)  ;;
   }
 
   dimension: carriageway_hazards {
@@ -102,9 +102,15 @@ view: accidents {
 #   }
 
   dimension: did_police_officer_attend_scene_of_accident {
-    type: number
-    sql: ${TABLE}.Did_Police_Officer_Attend_Scene_of_Accident ;;
+    type: yesno
+    sql: ${TABLE}.did_police_officer_attend_scene_of_accident = 1 ;;
   }
+
+  dimension: Was_Self_Reported {
+    type: yesno
+    sql: ${TABLE}.did_police_officer_attend_scene_of_accident = 3;;
+  }
+
 
   dimension: junction_control {
     type: string
@@ -200,7 +206,7 @@ view: accidents {
   }
 
   dimension: road_type {
-    type: number
+    type: string
     sql: (SELECT label FROM `UK_Car_Crashes.Road_Type` WHERE code = ${TABLE}.Road_Type) ;;
   }
 
