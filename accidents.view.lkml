@@ -82,6 +82,8 @@ view: accidents {
       day_of_week,
       week_of_year,
       minute,
+      minute2,
+      hour_of_day,
       hour,
       time_of_day,
       month_name,
@@ -119,8 +121,8 @@ view: accidents {
   }
 
   dimension: junction_detail {
-    type: number
-    sql: ${TABLE}.Junction_Detail ;;
+    type: string
+    sql: (SELECT label FROM `UK_Car_Crashes.Junction_Control` WHERE code = ${TABLE}.Junction_Detail) ;;
   }
 
   dimension: latitude {
@@ -201,8 +203,17 @@ view: accidents {
   }
 
   dimension: road_surface_conditions {
-    type: number
-    sql: ${TABLE}.Road_Surface_Conditions ;;
+    type: string
+    sql: CASE WHEN ${TABLE}.Road_Surface_Conditions = 1  THEN "Dry"
+               WHEN ${TABLE}.Road_Surface_Conditions = 2 THEN "Wet or damp"
+               WHEN ${TABLE}.Road_Surface_Conditions = 3 THEN "Snow"
+               WHEN ${TABLE}.Road_Surface_Conditions = 4 THEN "Frost or ice"
+               WHEN ${TABLE}.Road_Surface_Conditions = 5 THEN "Flood over 3cm. deep"
+               WHEN ${TABLE}.Road_Surface_Conditions = 6 THEN "Oil or diesel"
+               WHEN ${TABLE}.Road_Surface_Conditions = 7 THEN "Mud"
+               WHEN ${TABLE}.Road_Surface_Conditions = -1 THEN "Data missing or out of range"
+              ELSE "Data missing or out of range"
+              END;;
   }
 
   dimension: road_type {
