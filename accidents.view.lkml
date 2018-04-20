@@ -74,6 +74,8 @@ view: accidents {
     }
   }
 
+
+
   dimension_group: date {
     type: time
     timeframes: [
@@ -94,8 +96,8 @@ view: accidents {
       year
     ]
     convert_tz: no
-    datatype: date
-    sql: ${TABLE}.Date ;;
+    #datatype: date
+    sql: CAST(CONCAT(CAST(${TABLE}.Date AS STRING), " ", ${TABLE}.Time, ":00") AS DATETIME) ;;
   }
 
 #   dimension: day_of_week {
@@ -273,6 +275,21 @@ view: accidents {
     sql: ${TABLE}.Time ;;
   }
 
+  dimension: seconds_as_number {
+    type: number
+    sql: SUBSTR(${TABLE}.Time, 4) ;;
+  }
+
+
+  dimension: minute_of_hour_excl_5 {
+    type: number
+    sql: CASE
+        WHEN MOD(CAST(SUBSTR(accidents.Time, 4) as INT64), 5) = 0 THEN NULL
+        ELSE CAST(SUBSTR(accidents.Time, 4) as INT64)
+       END ;;
+  }
+
+
   dimension: urban_or_rural_area {
     type: string
     sql: (SELECT label FROM `UK_Car_Crashes.Urban_Rural` WHERE code = ${TABLE}.Urban_or_Rural_Area) ;;
@@ -302,4 +319,5 @@ view: accidents {
     type: sum
     sql: ${TABLE}.Number_of_Casualties ;;
   }
+
 }
