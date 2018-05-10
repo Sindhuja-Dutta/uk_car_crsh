@@ -12,7 +12,8 @@ view: Vehicles_defined {
         column: label { field: point_of_impact.label }
         column: hit_object_in_carriageway {}
         column: hit_object_off_carriageway {}
-        column: label { field: junction_location.label }
+#        column: label { field: junction_location.label }
+        column: junction_location{}
         column: propulsion_code {}
         column: label { field: journey_purpose.label }
         column: label { field: sex_of_driver.label }

@@ -182,11 +182,11 @@ view: vehicles {
     sql: ${TABLE}.Journey_Purpose_of_Driver ;;
   }
 
-  dimension: junction_location {
-    hidden: yes
-    type: string
-    sql: ${TABLE}.Junction_Location ;;
-  }
+#   dimension: junction_location {
+#     hidden: yes
+#     type: string
+#     sql: ${TABLE}.Junction_Location ;;
+#   }
 
   dimension: propulsion_code {
     label: "Propulsion Type"
@@ -370,6 +370,52 @@ view: vehicles {
       }
       else: "Unknown"
       }
+  }
+
+  dimension: junction_location  {
+    type: string
+    case: {
+      when: {
+        sql: cast(${TABLE}.junction_locatioon as int64) = 1 ;;
+        label: "Approaching junction or waiting/parked at junction approach"
+      }
+      when: {
+        sql: cast(${TABLE}.junction_locatioon as int64) = 2 ;;
+        label: "Cleared junction or waiting/parked at junction exit"
+      }
+      when: {
+        sql: cast(${TABLE}.junction_locatioon as int64) = 3 ;;
+        label: "Unknown"
+      }
+      when: {
+        sql: cast(${TABLE}.junction_locatioon as int64) = 4 ;;
+        label: "Entering from slip road"
+      }
+      when: {
+        sql: cast(${TABLE}.junction_locatioon as int64) = 5 ;;
+        label: "Entering main road"
+      }
+      when: {
+        sql: cast(${TABLE}.junction_locatioon as int64) = 6 ;;
+        label: "Entering roundabout"
+      }
+      when: {
+        sql: cast(${TABLE}.junction_locatioon as int64) = 7 ;;
+        label: "Leaving main road"
+      }
+      when: {
+        sql: cast(${TABLE}.junction_locatioon as int64) = 8 ;;
+        label: "Leaving roundabout"
+      }
+      when: {
+        sql: cast(${TABLE}.junction_locatioon as int64) = 9 ;;
+        label: "Mid Junction - on roundabout or on main road"
+      }
+      when: {
+        sql: cast(${TABLE}.junction_locatioon as int64) = 10 ;;
+        label: "Not at or within 20 metres of junction"
+      }
+    }
   }
 
   measure: count {

@@ -19,7 +19,32 @@ view: casualties {
 
   dimension: bus_or_coach_passenger {
     type: string
-    sql: ${TABLE}.Bus_or_Coach_Passenger ;;
+    case: {
+      when: {
+        sql: cast(${TABLE}.bus_or_coach_passenger as int64) = 0 ;;
+        label: "Not a bus passenger"
+      }
+      when: {
+        sql: cast(${TABLE}.bus_or_coach_passenger as int64) = 1 ;;
+        label: "Boarding"
+      }
+      when: {
+        sql: cast(${TABLE}.bus_or_coach_passenger as int64) = 2 ;;
+        label: "Alighting"
+      }
+      when: {
+        sql: cast(${TABLE}.bus_or_coach_passenger as int64) = 3 ;;
+        label: "Standing Passenger"
+      }
+      when: {
+        sql: cast(${TABLE}.bus_or_coach_passenger as int64) = 4 ;;
+        label: "Seated Passenger"
+      }
+      when: {
+        sql: cast(${TABLE}.bus_or_coach_passenger as int64) = -1 ;;
+        label: "Unknown"
+      }
+    }
   }
 
   dimension: car_passenger {

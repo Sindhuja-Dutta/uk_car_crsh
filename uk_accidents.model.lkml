@@ -44,11 +44,11 @@ explore: vehicles {
   relationship: many_to_one
   }
 
-  join:  junction_location{
-  view_label: "Vehicles"
-  sql_on: cast(${vehicles.junction_location} as int64) = ${junction_location.code}  ;;
-  relationship: many_to_one
-  }
+#   join:  junction_location{
+#   view_label: "Vehicles"
+#   sql_on: cast(${vehicles.junction_location} as int64) = ${junction_location.code}  ;;
+#   relationship: many_to_one
+#   }
   join:  point_of_impact{
   view_label: "Vehicles"
   sql_on: cast(${vehicles.first_point_of_impact} as int64) = ${point_of_impact.code} ;;
