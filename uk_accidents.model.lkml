@@ -54,11 +54,12 @@ explore: vehicles {
   sql_on: cast(${vehicles.first_point_of_impact} as int64) = ${point_of_impact.code} ;;
   relationship: many_to_one
   }
-  join: journey_purpose {
-  view_label: "Vehicles"
-  sql_on: cast(${vehicles.journey_purpose_of_driver} as int64) = ${journey_purpose.code}  ;;
-  relationship: many_to_one
-  }
+#   join: journey_purpose {
+#   view_label: "Vehicles"
+#   sql_on: cast(${vehicles.journey_purpose_of_driver} as int64) = ${journey_purpose.code}  ;;
+#   relationship: many_to_one
+#   }
+
   join: sex_of_driver {
   view_label: "Vehicles"
   sql_on: cast(${vehicles.sex_of_driver} as int64) = ${sex_of_driver.code} ;;

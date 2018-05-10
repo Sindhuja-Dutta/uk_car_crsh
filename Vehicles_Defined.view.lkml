@@ -15,7 +15,8 @@ view: Vehicles_defined {
 #        column: label { field: junction_location.label }
         column: junction_location{}
         column: propulsion_code {}
-        column: label { field: journey_purpose.label }
+#         column: label { field: journey_purpose.label }
+        column: driver_journey_purpose {}
         column: label { field: sex_of_driver.label }
         column: skidding_and_overturning {}
         column: towing_and_articulation {}

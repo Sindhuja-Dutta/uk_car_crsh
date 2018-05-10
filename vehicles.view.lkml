@@ -20,7 +20,8 @@ view: vehicles {
 
   dimension: age_of_driver {
     type: number
-    sql: cast(${TABLE}.Age_of_Driver as int64) ;;
+    sql: NULLIF(cast(${TABLE}.Age_of_Driver as int64), -1) ;;
+#      cast(${TABLE}.Age_of_Driver as int64)
   }
 
   dimension: age_of_vehicle {
@@ -57,7 +58,7 @@ view: vehicles {
 
   dimension: engine_capacity {
     type: number
-    sql: ${TABLE}.Engine_Capacity ;;
+    sql:NULLIF(CAST(${TABLE}.Engine_Capacity as int64), -1)  ;;
   }
 
   dimension: first_point_of_impact {
@@ -176,10 +177,31 @@ view: vehicles {
       }
   }
 
-  dimension: journey_purpose_of_driver {
-    hidden: yes
-    type: string
-    sql: ${TABLE}.Journey_Purpose_of_Driver ;;
+  dimension: driver_journey_purpose {
+    case: {
+      when: {
+        sql: cast(${TABLE}.journey_purpose_of_driver as int64) = 1 ;;
+        label: "Part of Work"
+      }
+      when: {
+        sql: cast(${TABLE}.journey_purpose_of_driver as int64) = 2 ;;
+        label: "Commuting to/from work"
+      }
+      when: {
+        sql: cast(${TABLE}.journey_purpose_of_driver as int64) = 3 ;;
+        label: "Taking pupil to/from school"
+      }
+      when: {
+        sql: cast(${TABLE}.journey_purpose_of_driver as int64) = 4 ;;
+        label: "Pupil riding to/from school"
+      }
+      when: {
+        sql: cast(${TABLE}.journey_purpose_of_driver as int64) = 5 ;;
+        label: "Other"
+      }
+      else: "Unknown"
+
+    }
   }
 
 #   dimension: junction_location {
@@ -376,43 +398,43 @@ view: vehicles {
     type: string
     case: {
       when: {
-        sql: cast(${TABLE}.junction_locatioon as int64) = 1 ;;
+        sql: cast(${TABLE}.junction_location as int64) = 1 ;;
         label: "Approaching junction or waiting/parked at junction approach"
       }
       when: {
-        sql: cast(${TABLE}.junction_locatioon as int64) = 2 ;;
+        sql: cast(${TABLE}.junction_location as int64) = 2 ;;
         label: "Cleared junction or waiting/parked at junction exit"
       }
       when: {
-        sql: cast(${TABLE}.junction_locatioon as int64) = 3 ;;
+        sql: cast(${TABLE}.junction_location as int64) = 3 ;;
         label: "Unknown"
       }
       when: {
-        sql: cast(${TABLE}.junction_locatioon as int64) = 4 ;;
+        sql: cast(${TABLE}.junction_location as int64) = 4 ;;
         label: "Entering from slip road"
       }
       when: {
-        sql: cast(${TABLE}.junction_locatioon as int64) = 5 ;;
+        sql: cast(${TABLE}.junction_location as int64) = 5 ;;
         label: "Entering main road"
       }
       when: {
-        sql: cast(${TABLE}.junction_locatioon as int64) = 6 ;;
+        sql: cast(${TABLE}.junction_location as int64) = 6 ;;
         label: "Entering roundabout"
       }
       when: {
-        sql: cast(${TABLE}.junction_locatioon as int64) = 7 ;;
+        sql: cast(${TABLE}.junction_location as int64) = 7 ;;
         label: "Leaving main road"
       }
       when: {
-        sql: cast(${TABLE}.junction_locatioon as int64) = 8 ;;
+        sql: cast(${TABLE}.junction_location as int64) = 8 ;;
         label: "Leaving roundabout"
       }
       when: {
-        sql: cast(${TABLE}.junction_locatioon as int64) = 9 ;;
+        sql: cast(${TABLE}.junction_location as int64) = 9 ;;
         label: "Mid Junction - on roundabout or on main road"
       }
       when: {
-        sql: cast(${TABLE}.junction_locatioon as int64) = 10 ;;
+        sql: cast(${TABLE}.junction_location as int64) = 10 ;;
         label: "Not at or within 20 metres of junction"
       }
     }

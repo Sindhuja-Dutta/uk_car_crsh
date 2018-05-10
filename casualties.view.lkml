@@ -2,6 +2,7 @@ view: casualties {
   sql_table_name: UK_Car_Crashes.Casualties ;;
 
   dimension: accident_index {
+    hidden: yes
     type: string
     sql: ${TABLE}.Accident_Index ;;
   }
@@ -13,8 +14,8 @@ view: casualties {
   }
 
   dimension: age_of_casualty {
-    type: string
-    sql: ${TABLE}.Age_of_Casualty ;;
+    type: number
+    sql: NULLIF(CAST(${TABLE}.Age_of_Casualty as int64), -1) ;;
   }
 
   dimension: bus_or_coach_passenger {
@@ -126,7 +127,17 @@ view: casualties {
 
   dimension: pedestrian_road_maintenance_worker {
     type: string
-    sql: ${TABLE}.Pedestrian_Road_Maintenance_Worker ;;
+    case: {
+      when: {
+        sql:CAST(${TABLE}.Pedestrian_Road_Maintenance_Worker as int64) = 0;;
+        label: "No/Not Applicable"
+        }
+      when: {
+        sql:CAST(${TABLE}.Pedestrian_Road_Maintenance_Worker as int64) = 1;;
+        label: "Yes"
+        }
+      else: "Unknown/Not Applicable"
+    }
   }
 
   dimension: sex_of_casualty {
