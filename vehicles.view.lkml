@@ -441,6 +441,16 @@ view: vehicles {
     }
   }
 
+#   dimension: mode_first_point_of_impact {
+#     type: string
+#     sql: (SELECT Vehicles.First_Point_of_Impact,
+#              COUNT(Vehicles.First_Point_of_Impact) AS value_occurrence
+#     FROM     Vehicles
+#     GROUP BY Vehicles.First_Point_of_Impact
+#     ORDER BY value_occurrence DESC
+#     LIMIT    1) ;;
+#   }
+
   measure: count {
     type: count
     drill_fields: []

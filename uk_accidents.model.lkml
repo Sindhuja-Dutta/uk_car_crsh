@@ -54,6 +54,12 @@ explore: vehicles {
   sql_on: cast(${vehicles.first_point_of_impact} as int64) = ${point_of_impact.code} ;;
   relationship: many_to_one
   }
+
+  join: first_point_of_impact_pdt {
+  view_label: "Vehicles"
+  sql_on: ${vehicles.driver_imd_decile} = ${first_point_of_impact_pdt.IMD_Decile}  ;;
+  relationship: one_to_many
+  }
 #   join: journey_purpose {
 #   view_label: "Vehicles"
 #   sql_on: cast(${vehicles.journey_purpose_of_driver} as int64) = ${journey_purpose.code}  ;;
