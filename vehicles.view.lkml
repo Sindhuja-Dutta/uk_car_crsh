@@ -8,6 +8,7 @@ view: vehicles {
   }
 
   dimension: accident_index {
+    hidden: yes
     type: string
     sql: ${TABLE}.Accident_Index ;;
   }
