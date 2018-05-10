@@ -27,7 +27,7 @@ view: vehicles {
 
   dimension: age_of_vehicle {
     type: number
-    sql: cast(${TABLE}.Age_of_Vehicle as int64) ;;
+    sql: NULLIF(CAST(${TABLE}.Age_of_Vehicle as int64), -1) ;;
   }
 
   dimension: driver_home_area_type {
@@ -53,8 +53,8 @@ view: vehicles {
   }
 
   dimension: driver_imd_decile {
-    type: string
-    sql: ${TABLE}.Driver_IMD_Decile ;;
+    type: number
+    sql: NULLIF(CAST(${TABLE}.Driver_IMD_Decile as int64), -1) ;;
   }
 
   dimension: engine_capacity {
@@ -447,17 +447,17 @@ view: vehicles {
   }
   measure: average_engine_capacity{
     type: average
-    sql: cast(vehicles.Engine_Capacity as int64) ;;
+    sql: NULLIF(cast(vehicles.Engine_Capacity as int64), -1) ;;
     value_format_name: decimal_0
   }
   measure: average_age_of_driver {
     type: average
-    sql: cast(vehicles.age_of_driver as int64) ;;
+    sql: NULLIF(cast(vehicles.age_of_driver as int64), -1) ;;
     value_format_name: decimal_0
   }
   measure: average_age_of_vehicle {
     type: average
-    sql: cast(vehicles.age_of_vehicle as int64);;
+    sql: NULLIF(cast(vehicles.age_of_vehicle as int64), -1);;
     value_format_name: decimal_1
   }
   measure: gender_known_count {
