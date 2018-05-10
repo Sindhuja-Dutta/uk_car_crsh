@@ -9,7 +9,7 @@ view: Vehicles_defined {
         column: driver_home_area_type {}
         column: driver_imd_decile {}
         column: engine_capacity {}
-        column: label { field: point_of_impact.label }
+#         column: label { field: point_of_impact.label }
         column: hit_object_in_carriageway {}
         column: hit_object_off_carriageway {}
 #        column: label { field: junction_location.label }
@@ -17,12 +17,12 @@ view: Vehicles_defined {
         column: propulsion_code {}
 #         column: label { field: journey_purpose.label }
         column: driver_journey_purpose {}
-        column: label { field: sex_of_driver.label }
+#         column: label { field: sex_of_driver.label }
         column: skidding_and_overturning {}
         column: towing_and_articulation {}
         column: vehicle_leaving_carriageway {}
-        column: label { field: vehicle_location.label }
-        column: label { field: vehicle_manoeuvre.label }
+#         column: label { field: vehicle_location.label }
+#         column: label { field: vehicle_manoeuvre.label }
         column: vehicle_reference {}
         column: vehicle_type { field: vehicle_type.vehicle_type }
         column: was_vehicle_left_hand_drive {}

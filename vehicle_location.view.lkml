@@ -7,7 +7,7 @@ view: vehicle_location {
     sql: ${TABLE}.code ;;
   }
 
-  dimension: label {
+  dimension: vehicle_location_label {
     label: "Vehicle Location"
     type: string
     sql: ${TABLE}.label ;;
