@@ -85,6 +85,7 @@ view: accidents {
       week_of_year,
       minute,
       minute2,
+      minute10,
       hour_of_day,
       hour,
       time_of_day,
@@ -96,7 +97,7 @@ view: accidents {
       year
     ]
     convert_tz: no
-    #datatype: date
+    datatype: date
     sql: CAST(CONCAT(CAST(${TABLE}.Date AS STRING), " ", ${TABLE}.Time, ":00") AS DATETIME) ;;
   }
 
@@ -141,6 +142,11 @@ view: accidents {
 
   dimension: location {
     drill_fields: [location, weather_conditions, light_conditions, road_surface_conditions]
+    link: {
+      label: "Accident Location"
+      url: "http://maps.google.com/maps?q=&layer=c&cbll={{latitude._value}},{{longitude._value}}"
+      icon_url: "http://maps.google.com/mapfiles/ms/icons/blue.png"
+    }
     type: location
     sql_latitude: ${latitude} ;;
     sql_longitude: ${longitude} ;;
@@ -275,7 +281,8 @@ view: accidents {
     sql: ${TABLE}.Time ;;
   }
 
-  dimension: seconds_as_number {
+  dimension: minute_as_number {
+    hidden: yes
     type: number
     sql: SUBSTR(${TABLE}.Time, 4) ;;
   }
@@ -287,6 +294,11 @@ view: accidents {
         WHEN MOD(CAST(SUBSTR(accidents.Time, 4) as INT64), 5) = 0 THEN NULL
         ELSE CAST(SUBSTR(accidents.Time, 4) as INT64)
        END ;;
+  }
+
+  dimension: minute_of_hour {
+    type: number
+    sql:  CAST(SUBSTR(accidents.Time, 4) as INT64) ;;
   }
 
 

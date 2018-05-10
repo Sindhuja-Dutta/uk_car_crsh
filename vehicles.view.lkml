@@ -320,7 +320,18 @@ view: vehicles {
 
   dimension: vehicle_leaving_carriageway {
     type: string
-    sql: ${TABLE}.Vehicle_Leaving_Carriageway ;;
+  #  sql: ${TABLE}.Vehicle_Leaving_Carriageway ;;
+    sql:  CASE WHEN CAST(${TABLE}.Vehicle_Leaving_Carriageway AS INT64) = 0 THEN "Did not leave carriageway"
+          WHEN CAST(${TABLE}.Vehicle_Leaving_Carriageway AS INT64) = 1  THEN "Nearside"
+          WHEN CAST(${TABLE}.Vehicle_Leaving_Carriageway AS INT64) = 2  THEN "Nearside and rebounded"
+          WHEN CAST(${TABLE}.Vehicle_Leaving_Carriageway AS INT64) = 3  THEN "Straight ahead at junction"
+          WHEN CAST(${TABLE}.Vehicle_Leaving_Carriageway AS INT64) = 4  THEN "Offside on to central reservation"
+          WHEN CAST(${TABLE}.Vehicle_Leaving_Carriageway AS INT64) = 5  THEN "Offside on to central res + rebounded"
+          WHEN CAST(${TABLE}.Vehicle_Leaving_Carriageway AS INT64) = 6  THEN "Offside - crossed central reservation"
+          WHEN CAST(${TABLE}.Vehicle_Leaving_Carriageway AS INT64) = 7  THEN "Offside"
+          WHEN CAST(${TABLE}.Vehicle_Leaving_Carriageway AS INT64) = 8  THEN "Offside and rebounded"
+          WHEN CAST(${TABLE}.Vehicle_Leaving_Carriageway AS INT64) = -1 THEN "Data missing or out of range"
+          END;;
   }
 
   dimension: vehicle_location_restricted_lane {

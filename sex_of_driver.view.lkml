@@ -7,8 +7,8 @@ view: sex_of_driver {
     sql: ${TABLE}.code ;;
   }
 
-  dimension: driver_sex_label {
-    label: "Sex"
+  dimension: label {
+    label: "Sex of person"
     type: string
     sql: ${TABLE}.label ;;
   }

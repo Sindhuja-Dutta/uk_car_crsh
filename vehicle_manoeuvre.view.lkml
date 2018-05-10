@@ -7,7 +7,7 @@ view: vehicle_manoeuvre {
     sql: ${TABLE}.code ;;
   }
 
-  dimension: vehicle_manoeuvre_label {
+  dimension: label {
     label: "Vehicle Manoeuvre"
     type: string
     sql: ${TABLE}.label ;;

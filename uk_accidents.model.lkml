@@ -13,8 +13,8 @@ explore: accidents {
 #       sql_on: ${vehicles.accident_index}  = ${accidents.accident_index} ;;
 #       relationship: one_to_one
 #   }
-  join: vehicle_pdt {
-    sql_on: ${vehicle_pdt.accident_index} = ${accidents.accident_index} ;;
+  join: Vehicles_defined {
+    sql_on: ${Vehicles_defined.accident_index} = ${accidents.accident_index} ;;
     relationship: many_to_one
   }
 }

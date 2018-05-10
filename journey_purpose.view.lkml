@@ -8,7 +8,7 @@ view: journey_purpose {
     sql: ${TABLE}.code ;;
   }
 
-  dimension: journey_purpose_label {
+  dimension: label {
     label: "Purpose of Journey"
     type: string
     sql: ${TABLE}.label ;;

@@ -24,7 +24,24 @@ view: casualties {
 
   dimension: car_passenger {
     type: string
-    sql: ${TABLE}.Car_Passenger ;;
+    case: {
+      when: {
+        sql: cast(${TABLE}.car_passenger as int64) = 0 ;;
+        label: "Not car passenger"
+      }
+      when: {
+        sql: cast(${TABLE}.car_passenger as int64) = 1 ;;
+        label: "Front seat passenger"
+      }
+      when: {
+        sql: cast(${TABLE}.car_passenger as int64) = 2 ;;
+        label: "Rear seat passenger"
+      }
+      when: {
+        sql: cast(${TABLE}.car_passenger as int64) = -1 ;;
+        label: "Unknown"
+      }
+    }
   }
 
   dimension: casualty_class {
