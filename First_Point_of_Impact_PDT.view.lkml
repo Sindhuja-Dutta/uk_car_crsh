@@ -22,7 +22,13 @@ view: first_point_of_impact_pdt {
     type: string
     sql: ${TABLE}.Driver_IMD_Decile ;;
   }
+  measure: FPOI_sum {
+    type: sum
+    sql:  value_occurrence;;
+  }
+
 }
+
 #
 #   dimension: lifetime_orders {
 #     description: "The total number of orders for each user"

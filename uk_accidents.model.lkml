@@ -4,8 +4,8 @@ include: "*.view.lkml"         # include all views in this project
 include: "*.dashboard.lookml"  # include all dashboards in this project
 
 explore: accidents {
-  join: casualties {
-    sql_on: ${accidents.accident_index} = ${casualties.accident_index} ;;
+  join: casualties_defined {
+    sql_on: ${accidents.accident_index} = ${casualties_defined.accident_index} ;;
     relationship: one_to_one
   }
 #   join: vehicles {
@@ -13,8 +13,8 @@ explore: accidents {
 #       sql_on: ${vehicles.accident_index}  = ${accidents.accident_index} ;;
 #       relationship: one_to_one
 #   }
-  join: Vehicles_defined {
-    sql_on: ${Vehicles_defined.accident_index} = ${accidents.accident_index} ;;
+  join: vehicles_defined_2 {
+    sql_on: ${vehicles_defined_2.accident_index} = ${accidents.accident_index} ;;
     relationship: many_to_one
   }
 }
@@ -55,11 +55,6 @@ explore: vehicles {
   relationship: many_to_one
   }
 
-  join: first_point_of_impact_pdt {
-  view_label: "Vehicles"
-  sql_on: ${vehicles.driver_imd_decile} = ${first_point_of_impact_pdt.IMD_Decile}  ;;
-  relationship: one_to_many
-  }
 #   join: journey_purpose {
 #   view_label: "Vehicles"
 #   sql_on: cast(${vehicles.journey_purpose_of_driver} as int64) = ${journey_purpose.code}  ;;

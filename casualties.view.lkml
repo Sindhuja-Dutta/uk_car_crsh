@@ -2,7 +2,7 @@ view: casualties {
   sql_table_name: UK_Car_Crashes.Casualties ;;
 
   dimension: accident_index {
-    hidden: yes
+    # hidden: yes
     type: string
     sql: ${TABLE}.Accident_Index ;;
   }
