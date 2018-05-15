@@ -1,6 +1,12 @@
 view: casualties {
   sql_table_name: UK_Car_Crashes.Casualties ;;
 
+  dimension: casualty_primary_key {
+    hidden: yes
+    primary_key: yes
+    sql: CONCAT(${TABLE}.Accident_Index, ${TABLE}.casualty_reference) ;;
+  }
+
   dimension: accident_index {
     # hidden: yes
     type: string
@@ -102,9 +108,22 @@ view: casualties {
   }
 
   dimension: casualty_severity {
-    hidden: yes
+#     hidden: yes
     type: string
-    sql: ${TABLE}.Casualty_Severity ;;
+    case: {
+      when: {
+        sql: cast(${TABLE}.casualty_severity as int64) = 1 ;;
+        label: "Fatal"
+      }
+      when: {
+        sql: cast(${TABLE}.casualty_severity as int64) = 2 ;;
+        label: "Serious"
+      }
+      when: {
+        sql: cast(${TABLE}.casualty_severity as int64) = 3 ;;
+        label: "Slight"
+      }
+    }
   }
 
   dimension: casualty_type {

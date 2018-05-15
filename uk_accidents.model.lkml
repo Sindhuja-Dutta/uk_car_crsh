@@ -4,27 +4,33 @@ include: "*.view.lkml"         # include all views in this project
 include: "*.dashboard.lookml"  # include all dashboards in this project
 
 explore: accidents {
-  join: casualties_defined {
-    sql_on: ${accidents.accident_index} = ${casualties_defined.accident_index} ;;
-    relationship: one_to_one
-  }
-#   join: vehicles {
-#     from: vehicles
-#       sql_on: ${vehicles.accident_index}  = ${accidents.accident_index} ;;
-#       relationship: one_to_one
-#   }
+
   join: vehicles_defined_2 {
-    sql_on: ${vehicles_defined_2.accident_index} = ${accidents.accident_index} ;;
-    relationship: many_to_one
+    sql_on: ${accidents.accident_index} = ${vehicles_defined_2.accident_index}  ;;
+    relationship: one_to_many
+  }
+
+  join: casualties_defined {
+    sql_on: CONCAT(${vehicles_defined_2.accident_index},${vehicles_defined_2.vehicle_reference})  =  CONCAT(${casualties_defined.accident_index},${casualties_defined.vehicle_reference}) ;;
+    relationship: one_to_many
+  }
+
+   join: districts_defined {
+    sql: LEFT JOIN `UK_Car_Crashes.Local_Authority_District` AS district ON accidents.Local_Authority__District_ = district.code LEFT JOIN `indigo-bazaar-192612.Looker_Scratch.LR_5BHQGAUBPYB6BOJ8DA5PF_districts_defined` AS districts_defined ON districts_defined.district = district.label
+
+
+     ;;
+    relationship: one_to_many
   }
 }
-
-# explore: vehicle {
-#   from: vehicles
+#   join: districts_defined {
+#     sql_on: ${districts_defined.district} = ${accidents.local_authority__district_}
+#     ;;
+#     relationship: one_to_many
+#   }
 # }
 
 explore: vehicles {
-  #extension: required
   join: vehicle_type
 
   {
@@ -44,22 +50,11 @@ explore: vehicles {
   relationship: many_to_one
   }
 
-#   join:  junction_location{
-#   view_label: "Vehicles"
-#   sql_on: cast(${vehicles.junction_location} as int64) = ${junction_location.code}  ;;
-#   relationship: many_to_one
-#   }
   join:  point_of_impact{
   view_label: "Vehicles"
   sql_on: cast(${vehicles.first_point_of_impact} as int64) = ${point_of_impact.code} ;;
   relationship: many_to_one
   }
-
-#   join: journey_purpose {
-#   view_label: "Vehicles"
-#   sql_on: cast(${vehicles.journey_purpose_of_driver} as int64) = ${journey_purpose.code}  ;;
-#   relationship: many_to_one
-#   }
 
   join: sex_of_driver {
   view_label: "Vehicles"
@@ -85,11 +80,7 @@ explore: casualties {
   sql_on: cast(${casualties.casualty_type} as int64) = ${casualty_type.code} ;;
   relationship: many_to_one
   }
-  join: casualty_severity {
-  view_label: "Casualties"
-  sql_on: cast(${casualties.casualty_severity} as int64) = ${casualty_severity.code} ;;
-  relationship: many_to_one
-  }
+
   join: ped_location {
   view_label: "Casualties"
   sql_on: cast(${casualties.pedestrian_location} as int64) = ${ped_location.code} ;;
@@ -110,5 +101,5 @@ explore: casualties {
   sql_on: cast(${casualties.age_band_of_casualty} as int64) = ${age_band.code} ;;
   relationship: many_to_one
   }
-
 }
+explore: local_authority_data {}
