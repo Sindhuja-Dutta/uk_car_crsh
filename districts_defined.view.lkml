@@ -2,6 +2,7 @@
 # include: "uk_accidents.model.lkml"
 
 view: districts_defined {
+  label: "District Information"
   derived_table: {
     persist_for: "1000 hours"
     explore_source: local_authority_data {

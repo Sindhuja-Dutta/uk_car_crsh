@@ -59,23 +59,23 @@ view: vehicles_defined_2 {
   dimension: hit_object_off_carriageway {}
   dimension: junction_location {}
   dimension: propulsion_code {
-    label: "Vehicles Propulsion Type"
+    label: "Propulsion Type"
   }
   dimension: sex_of_driver_label {
-    label: "Vehicles Sex of driver"
+    label: "Sex of driver"
   }
   dimension: skidding_and_overturning {}
   dimension: towing_and_articulation {}
   dimension: vehicle_leaving_carriageway {}
   dimension: vehicle_location_label {
-    label: "Vehicles Vehicle Location"
+    label: "Vehicle Location"
   }
   dimension: Vehicle_Manoeuvre_label {
-    label: "Vehicles Vehicle Manoeuvre"
+    label: "Vehicle Manoeuvre"
   }
   dimension: vehicle_reference {}
   dimension: vehicle_type {
-    label: "Vehicles Vehicle Type"
+    label: "Vehicle Type"
   }
   dimension: was_vehicle_left_hand_drive {}
   dimension: average_age_of_driver {

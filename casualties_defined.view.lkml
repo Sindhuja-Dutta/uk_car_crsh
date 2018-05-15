@@ -3,6 +3,7 @@
 # include: "uk_accidents.model.lkml"
 
 view: casualties_defined {
+  label: "Casualties"
     derived_table: {
       persist_for: "1000 hours"
       explore_source: casualties {
@@ -26,7 +27,7 @@ view: casualties_defined {
     }
     dimension: accident_index {}
     dimension: age_band {
-      label: "Casualties Age Band"
+      label: "Casualty Age Band"
     }
     dimension: age_of_casualty {
       type: number
@@ -34,23 +35,23 @@ view: casualties_defined {
     dimension: bus_or_coach_passenger {}
     dimension: car_passenger {}
     dimension: casualty_class {
-      label: "Casualties Casualty Class"
+      label: "Casualty Class"
     }
     dimension: casualty_home_area_type {}
     dimension: casualty_reference {}
     dimension: casualty_severity {}
     dimension: Casualty_type {
-      label: "Casualties Casualty Type"
+      label: "Casualty Type"
     }
     dimension: pedestrian_location {
-      label: "Casualties Pedestrian Location"
+      label: "Pedestrian Location"
     }
     dimension: Pedestrian_Movement {
-      label: "Casualties Pedestrian Movement"
+      label: "Pedestrian Movement"
     }
     dimension: pedestrian_road_maintenance_worker {}
     dimension: sex_of_driver_label {
-      label: "Casualties Sex of driver"
+      label: "Sex of casualty"
     }
     dimension: vehicle_reference {}
     dimension: count {
