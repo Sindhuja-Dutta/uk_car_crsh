@@ -25,12 +25,24 @@ view: casualties_defined {
         column: count {}
       }
     }
+    dimension: casualty_pk {
+      hidden: yes
+      primary_key: yes
+      type: string
+      sql: CONCAT(${casualties_defined.accident_index},${casualties_defined.vehicle_reference}) ;;
+    }
     dimension: accident_index {}
     dimension: age_band {
       label: "Casualty Age Band"
     }
     dimension: age_of_casualty {
       type: number
+    }
+    dimension: casualty_age_tier {
+      type: tier
+      tiers: [10,20,30,40,50,60,70,80]
+      style: interval
+      sql: ${age_of_casualty} ;;
     }
     dimension: bus_or_coach_passenger {}
     dimension: car_passenger {}
@@ -55,6 +67,10 @@ view: casualties_defined {
     }
     dimension: vehicle_reference {}
     dimension: count {
+      hidden: yes
       type: number
+    }
+    measure: casualty_count {
+      type: count
     }
   }

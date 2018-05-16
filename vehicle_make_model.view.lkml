@@ -3,6 +3,7 @@ view: vehicle_make_model {
   sql_table_name: UK_Car_Crashes.Vehicle_Make_Model ;;
 
   dimension: make_model_key {
+    primary_key: yes
      hidden: yes
     type: string
     sql:  CONCAT(${TABLE}.Accident_Index, ${TABLE}.Vehicle_Reference) ;;

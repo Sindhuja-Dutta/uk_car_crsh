@@ -16,7 +16,7 @@ explore: accidents {
   }
 
    join: districts_defined {
-    sql: LEFT JOIN `UK_Car_Crashes.Local_Authority_District` AS district ON accidents.Local_Authority__District_ = district.code LEFT JOIN `indigo-bazaar-192612.Looker_Scratch.LR_5BHQGAUBPYB6BOJ8DA5PF_districts_defined` AS districts_defined ON districts_defined.district = district.label
+    sql: LEFT JOIN `UK_Car_Crashes.Local_Authority_District` AS district ON accidents.Local_Authority__District_ = district.code LEFT JOIN `indigo-bazaar-192612.Looker_Scratch.LR_5BX85TOSPVP2XXGDZ10WE_districts_defined` AS districts_defined ON districts_defined.district = district.label
      ;;
     relationship: one_to_many
   }
@@ -107,3 +107,5 @@ explore: casualties {
 explore: local_authority_data {}
 
 explore: vehicle_make_model {}
+
+explore: districts_defined {}

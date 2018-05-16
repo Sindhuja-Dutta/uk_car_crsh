@@ -25,6 +25,12 @@ view: local_authority_data {
     type: number
     sql: ${TABLE}.Density ;;
   }
+  dimension: population_density_tier {
+    type: tier
+    tiers: [25,50,75,100]
+    style: interval
+    sql: ${TABLE}.Density ;;
+  }
 
   dimension: district {
     primary_key: yes
@@ -50,21 +56,6 @@ view: local_authority_data {
   dimension: school_boarder {
     type: number
     sql: ${TABLE}.SchoolBoarder ;;
-  }
-
-  dimension: string_field_10 {
-    type: string
-    sql: ${TABLE}.string_field_10 ;;
-  }
-
-  dimension: string_field_11 {
-    type: string
-    sql: ${TABLE}.string_field_11 ;;
-  }
-
-  dimension: string_field_12 {
-    type: string
-    sql: ${TABLE}.string_field_12 ;;
   }
 
   measure: count {
