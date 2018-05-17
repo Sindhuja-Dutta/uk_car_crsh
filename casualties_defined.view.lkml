@@ -71,6 +71,12 @@ view: casualties_defined {
       type: number
     }
     measure: casualty_count {
+      drill_fields: [age_of_casualty, sex_of_driver_label, casualty_severity, Casualty_type, casualty_class]
       type: count
     }
+  measure: pedestrian_casualty_count {
+    drill_fields: [age_of_casualty, sex_of_driver_label, casualty_severity, pedestrian_location, Pedestrian_Movement]
+    type: count
+  }
+
   }

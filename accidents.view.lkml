@@ -142,7 +142,7 @@ view: accidents {
   }
 
   dimension: location {
-    drill_fields: [location, weather_conditions, light_conditions, road_surface_conditions]
+#     drill_fields: [location, weather_conditions, light_conditions, road_surface_conditions]
     link: {
       label: "Accident Location"
       url: "http://maps.google.com/maps?q=&layer=c&cbll={{latitude._value}},{{longitude._value}}"
@@ -325,7 +325,7 @@ view: accidents {
 
   measure: count {
     type: count
-    drill_fields: [date_date, accident_severity, number_of_casualties, road_surface_conditions, number_of_vehicles, light_conditions, weather_conditions, junction_detail]
+    drill_fields: [date_date,  date_day_of_week, time, accident_severity, number_of_casualties, carriageway_hazards, road_type, special_conditions_at_site, road_surface_conditions, number_of_vehicles, light_conditions, weather_conditions, junction_detail, speed_limit]
   }
 
   measure: Sum_of_casualties{

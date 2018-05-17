@@ -47,8 +47,8 @@ view: districts_defined {
       sql: ${district} ;;
       html: <div style="width: 200px; text-align: center; margin: auto">
       <img src=
-      " https://looker-feeling-lucky.herokuapp.com/api.php?q={{ value | replace: '%', ' ' | url_param_escape }}%25district%25council%25logo"
-      alt="{{value}}" style="height: 200px; width: 200px; border-radius: 20px; margin-bottom: 5px;" />
+      "https://looker-feeling-lucky.herokuapp.com/api.php?q={{ value | replace: '%', ' ' | url_param_escape }}%25district%25council%25logo%25borough"
+      alt="{{value}}" style="height: 150px; width: 150px; border-radius: 10px; margin-bottom: 5px;" />
       </div> ;;
     }
 
