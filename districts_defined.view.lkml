@@ -36,4 +36,20 @@ view: districts_defined {
     dimension: all {
       type: number
     }
+    dimension: District_Image {
+#       sql: ${district} ;;
+#       html: <div style="width: 200px; text-align: center; margin: auto">
+#       <img src=
+#       "https://feeling-lucky-looker.herokuapp.com/api.php?q={{ value | replace: '%', ' ' | url_param_escape }}%25district%25council%25logo"
+#       alt="{{value}}" style="height: 200px; width: 200px; border-radius: 20px; margin-bottom: 5px;" />
+#       </div> ;;
+
+      sql: ${district} ;;
+      html: <div style="width: 200px; text-align: center; margin: auto">
+      <img src=
+      " https://looker-feeling-lucky.herokuapp.com/api.php?q={{ value | replace: '%', ' ' | url_param_escape }}%25district%25council%25logo"
+      alt="{{value}}" style="height: 200px; width: 200px; border-radius: 20px; margin-bottom: 5px;" />
+      </div> ;;
+    }
+
   }

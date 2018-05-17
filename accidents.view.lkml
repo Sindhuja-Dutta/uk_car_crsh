@@ -325,7 +325,7 @@ view: accidents {
 
   measure: count {
     type: count
-    drill_fields: []
+    drill_fields: [date_date, accident_severity, number_of_casualties, road_surface_conditions, number_of_vehicles, light_conditions, weather_conditions, junction_detail]
   }
 
   measure: Sum_of_casualties{
