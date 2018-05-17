@@ -97,8 +97,9 @@ view: accidents {
       year
     ]
     convert_tz: no
-    datatype: date
-    sql: CAST(CONCAT(CAST(${TABLE}.Date AS STRING), " ", ${TABLE}.Time, ":00") AS DATETIME) ;;
+    datatype: datetime
+#     sql: CAST(CONCAT(CAST(${TABLE}.Date AS STRING), " ", ${TABLE}.Time, ":00") AS DATETIME) ;; Won't work with date filter
+    sql:CAST(${TABLE}.Date AS TIMESTAMP)   ;;
   }
 
 #   dimension: day_of_week {

@@ -36,7 +36,7 @@ view: vehicles_defined_2 {
     }
   }
   dimension: age_band {
-    label: "Vehicles Age Band"
+    label: "Driver Age Band"
   }
   dimension: age_of_driver {
     type: number
