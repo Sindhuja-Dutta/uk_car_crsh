@@ -75,6 +75,10 @@ view: casualties_defined {
       type: count
     }
   measure: pedestrian_casualty_count {
+    filters: {
+      field: casualty_class
+      value: "Pedestrian"
+    }
     drill_fields: [age_of_casualty, sex_of_driver_label, casualty_severity, pedestrian_location, Pedestrian_Movement]
     type: count
   }

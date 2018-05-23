@@ -1,3 +1,5 @@
+include: "vehicle_make_model.view"
+include: "districts_defined.view"
 view: accidents {
   sql_table_name: UK_Car_Crashes.Accidents ;;
 
@@ -98,8 +100,8 @@ view: accidents {
     ]
     convert_tz: no
     datatype: datetime
-#     sql: CAST(CONCAT(CAST(${TABLE}.Date AS STRING), " ", ${TABLE}.Time, ":00") AS DATETIME) ;; Won't work with date filter
-    sql:CAST(${TABLE}.Date AS TIMESTAMP)   ;;
+     sql: CAST(CONCAT(CAST(${TABLE}.Date AS STRING), " ", ${TABLE}.Time, ":00") AS TIMESTAMP) ;;
+#     sql:CAST(${TABLE}.Date AS TIMESTAMP)   ;;
   }
 
 #   dimension: day_of_week {
@@ -142,16 +144,46 @@ view: accidents {
   }
 
   dimension: location {
-#     drill_fields: [location, weather_conditions, light_conditions, road_surface_conditions]
+#      drill_fields: [accident_severity]
+
+#     link: {
+#       label: "Google Search"
+#       url: "http://www.google.com/search?&q=road+accident+{{date_year._value}},{{date_day_of_month._value}},{{date_day_of_week._value}},{{date_month_name._value}},{{accident_severity._value}}, {{local_authority__district_._value}}"
+#       icon_url: "http://google.com/favicon.ico"
+#     }
+
+#     link: {
+#       label: "Google Streetview"
+#       url: "http://maps.google.com/maps?q=&layer=c&cbll={{latitude._value}},{{longitude._value}}"
+#       icon_url: "http://maps.google.com/mapfiles/ms/icons/blue.png"
+#     }
+
+    type: location
+    sql_latitude: ROUND(${latitude}, 3) ;;
+    sql_longitude: ROUND(${longitude}, 3) ;;
+  }
+
+  dimension: location_streetview {
+#      drill_fields: [accident_severity]
+
+#     link: {
+#       label: "Google Search"
+#       url: "http://www.google.com/search?&q=road+accident+{{date_year._value}},{{date_day_of_month._value}},{{date_day_of_week._value}},{{date_month_name._value}},{{accident_severity._value}}, {{local_authority__district_._value}}"
+#       icon_url: "http://google.com/favicon.ico"
+#     }
+
     link: {
-      label: "Accident Location"
+      label: "Google Streetview"
       url: "http://maps.google.com/maps?q=&layer=c&cbll={{latitude._value}},{{longitude._value}}"
       icon_url: "http://maps.google.com/mapfiles/ms/icons/blue.png"
     }
+
     type: location
-    sql_latitude: ${latitude} ;;
-    sql_longitude: ${longitude} ;;
+    sql_latitude: ROUND(${latitude}, 5) ;;
+    sql_longitude: ROUND(${longitude}, 5) ;;
   }
+
+
 
   dimension: light_conditions {
     type: string
@@ -302,6 +334,29 @@ view: accidents {
     sql:  CAST(SUBSTR(accidents.Time, 4) as INT64) ;;
   }
 
+  dimension: density_bucket {
+    type: string
+    sql: CASE WHEN ${districts_defined.density} BETWEEN 0 and 5  THEN "1"
+          WHEN ${districts_defined.density} BETWEEN 5 and 10  THEN "2"
+           WHEN ${districts_defined.density} BETWEEN 10 and 15  THEN "3"
+           WHEN ${districts_defined.density} BETWEEN 15 and 20  THEN "4"
+           WHEN ${districts_defined.density} BETWEEN 20 and 25  THEN "5"
+           WHEN ${districts_defined.density} BETWEEN 25 and 30  THEN "6"
+           WHEN ${districts_defined.density} BETWEEN 30 and 40  THEN "7"
+           WHEN ${districts_defined.density} BETWEEN 40 and 45  THEN "8"
+           WHEN ${districts_defined.density} BETWEEN 45 and 58  THEN "9"
+           WHEN ${districts_defined.density} BETWEEN 58 and 72  THEN "10"
+           WHEN ${districts_defined.density} BETWEEN 72 and 90  THEN "11"
+           WHEN ${districts_defined.density} BETWEEN 72 and 90  THEN "11"
+          WHEN ${districts_defined.density} > 90  THEN "12"
+              ELSE NULL END ;;
+  }
+
+  dimension: for_density_matching {
+    type: string
+    sql: ${density_bucket} ;;
+  }
+
 
   dimension: urban_or_rural_area {
     type: string
@@ -325,8 +380,16 @@ view: accidents {
 
   measure: count {
     type: count
-    drill_fields: [date_date,  date_day_of_week, time, accident_severity, number_of_casualties, carriageway_hazards, road_type, special_conditions_at_site, road_surface_conditions, number_of_vehicles, light_conditions, weather_conditions, junction_detail, speed_limit]
+    drill_fields: [location_streetview, date_date,  date_day_of_week, time, accident_severity, number_of_casualties, carriageway_hazards, road_type, special_conditions_at_site, road_surface_conditions, number_of_vehicles, light_conditions, weather_conditions, junction_detail, vehicle_make_model.vehicle_brand, vehicle_make_model.vehicle_model, speed_limit]
+
+    link: {
+      label: "Map Visualisation"
+      url: "https://dcl.dev.looker.com/explore/uk_accidents/accidents?qid=N4CACbGi5LLNsHAQcdiVvv&toggle=dat,vis"
+
+    }
+
   }
+
 
   measure: Sum_of_casualties{
     type: sum

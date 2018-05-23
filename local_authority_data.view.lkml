@@ -38,6 +38,28 @@ view: local_authority_data {
     sql: ${TABLE}.District ;;
   }
 
+  dimension: density_peer1{
+    type: string
+    sql: (SELECT
+  districts_defined.district
+FROM UK_Car_Crashes.Accidents  AS accidents
+LEFT JOIN `UK_Car_Crashes.Local_Authority_District` AS district ON accidents.Local_Authority__District_ = district.code LEFT JOIN `indigo-bazaar-192612.Looker_Scratch.LR_5BX85TOSPVP2XXGDZ10WE_districts_defined` AS districts_defined ON districts_defined.district = district.label
+WHERE districts_defined.density = (SELECT
+  districts_defined.density
+FROM UK_Car_Crashes.Accidents  AS accidents
+LEFT JOIN `UK_Car_Crashes.Local_Authority_District` AS district ON accidents.Local_Authority__District_ = district.code LEFT JOIN `indigo-bazaar-192612.Looker_Scratch.LR_5BX85TOSPVP2XXGDZ10WE_districts_defined` AS districts_defined ON districts_defined.district = district.label
+WHERE districts_defined.density > (SELECT
+  distinct(districts_defined.density)
+FROM UK_Car_Crashes.Accidents  AS accidents
+LEFT JOIN `UK_Car_Crashes.Local_Authority_District` AS district ON accidents.Local_Authority__District_ = district.code LEFT JOIN `indigo-bazaar-192612.Looker_Scratch.LR_5BX85TOSPVP2XXGDZ10WE_districts_defined` AS districts_defined ON districts_defined.district = district.label
+WHERE districts_defined.district = ${TABLE}.District
+limit 1)
+order by 1 asc
+limit 1)
+order by 1 asc
+limit 1)    ;;
+}
+
   dimension: females {
     type: number
     sql: ${TABLE}.Females ;;
