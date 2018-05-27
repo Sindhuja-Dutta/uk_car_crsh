@@ -1,7 +1,7 @@
 view: vehicles {
   sql_table_name: UK_Car_Crashes.Vehicles ;;
 
-  dimension: primary_key {
+  dimension: vehicles_primary_key {
     hidden: yes
     primary_key: yes
     sql: CONCAT(${TABLE}.Accident_Index, ${TABLE}.vehicle_reference) ;;

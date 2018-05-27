@@ -7,6 +7,7 @@ view: vehicles_defined_2 {
   derived_table: {
     persist_for: "1000 hours"
     explore_source: vehicles {
+      column: vehicles_primary_key{}
       column: age_band { field: age_band.age_band }
       column: age_of_driver {}
       column: age_of_vehicle {}
@@ -35,6 +36,10 @@ view: vehicles_defined_2 {
       column: accident_index {}
     }
   }
+  dimension: vehicles_primary_key {
+    primary_key: yes
+  }
+
   dimension: age_band {
     label: "Driver Age Band"
   }

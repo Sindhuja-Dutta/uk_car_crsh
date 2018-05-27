@@ -2,6 +2,7 @@
  include: "uk_accidents.model.lkml"
 
 view: districts_defined {
+  view_label: "Accident District"
  # If necessary, uncomment the line below to include explore_source.
     derived_table: {
       persist_for: "100000 hours"
@@ -26,13 +27,13 @@ view: districts_defined {
       sql: ${density} ;;
 
     }
-    dimension: count {
-      type: number
-    }
+
     dimension: area_ {
       type: number
     }
-    dimension: district {}
+    dimension: district {
+      primary_key: yes
+    }
     dimension: all {
       type: number
       label: "District Population"
@@ -48,9 +49,11 @@ view: districts_defined {
       sql: ${district} ;;
       html: <div style="width: 200px; text-align: center; margin: auto">
       <img src=
-      "https://looker-feeling-lucky.herokuapp.com/api.php?q={{ value | replace: '%', ' ' | url_param_escape }}%25district%25council%25logo"
+      "https://looker-feeling-lucky.herokuapp.com/api.php?q={{ value | replace: '%', ' ' | url_param_escape }}%25council%25logo"
       alt="{{value}}" style="height: 150px; width: 150px; border-radius: 10px; margin-bottom: 5px;" />
       </div> ;;
     }
-
+  measure: count {
+    type: count
+  }
   }

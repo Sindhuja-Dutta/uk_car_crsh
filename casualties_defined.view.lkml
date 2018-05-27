@@ -25,6 +25,31 @@ view: casualties_defined {
         column: count {}
       }
     }
+
+  dimension: casualty_cost {
+    hidden: yes
+    type: string
+    case: {
+      when: {
+        sql: ${TABLE}.casualty_severity  = "Fatal" ;;
+        label: "2005664.0"
+      }
+      when: {
+        sql: ${TABLE}.casualty_severity = "Serious" ;;
+        label: "229757.0"
+      }
+      when: {
+        sql: ${TABLE}.casualty_severity = "Slight" ;;
+        label: "24194.0"
+      }
+    }
+  }
+
+  measure: casualty_cost_sum {
+    type: sum
+    sql: CAST(${casualty_cost} as float64) ;;
+  }
+
     dimension: casualty_pk {
       hidden: yes
       primary_key: yes

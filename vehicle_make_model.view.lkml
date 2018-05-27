@@ -25,6 +25,12 @@ view: vehicle_make_model {
     sql: ${TABLE}.Vehicle_Model ;;
   }
 
+  dimension: vehicle_image {
+    group_label: "Images"
+    sql: ${TABLE}.Vehicle_Model ;;
+    html: <img src="http://feeling-lucky-looker.herokuapp.com/api.php?q={{value | url_param_escape }}%20road"  style="max-height: 200px; max-width: 200px; border-radius: 10px; margin-bottom: 10px;" />
+      ;;
+  }
   dimension: vehicle_reference {
     hidden: yes
     type: string

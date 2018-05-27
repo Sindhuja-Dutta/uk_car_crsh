@@ -1,5 +1,6 @@
 include: "uk_accidents.model.lkml"
 view: cunning_derived_table {
+  view_label: "Accident District"
   # Or, you could make this view a derived table, like this:
   derived_table: {
     persist_for: "1000 hours"
@@ -22,24 +23,37 @@ ORDER BY 1
 
   # Define your dimensions and measures here, like this:
   dimension: lower_district {
+    label: "Next least dense district"
     # description: "Unique ID for each user that has ordered"
     type: string
     sql: ${TABLE}.lower_district ;;
+    link: {
+      label: "desired label name"
+      url: "/dashboards/117?District%20Council%20Filter={{ value }}"
+#       icon_url: "url_of_an_image_file"
+    }
   }
 
+
   dimension: derived_district {
+    label: "District"
+    hidden: yes
+    primary_key: yes
     # description: "Unique ID for each user that has ordered"
     type: string
     sql: ${TABLE}.derived_district ;;
   }
 
   dimension: higher_district {
+    label: "Next most dense district"
     # description: "Unique ID for each user that has ordered"
     type: string
     sql: ${TABLE}.higher_district ;;
   }
 
   dimension: derived_density {
+
+    hidden: yes
     type: number
     sql: ${TABLE}.derived_density ;;
   }

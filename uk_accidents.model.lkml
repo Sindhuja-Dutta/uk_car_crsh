@@ -15,6 +15,11 @@ explore: accidents {
     relationship: one_to_many
   }
 
+#   join: accident_costs {
+#     sql_on: ${casualties_defined.casualty_severity} = ${accident_costs.accident_casualty_type} ;;
+#     relationship: many_to_one
+#   }
+
    join: districts_defined {
     sql: LEFT JOIN `UK_Car_Crashes.Local_Authority_District` AS district ON accidents.Local_Authority__District_ = district.code LEFT JOIN ${districts_defined.SQL_TABLE_NAME} AS districts_defined ON districts_defined.district = district.label
      ;;
@@ -116,3 +121,5 @@ explore: vehicle_make_model {}
 explore: districts_defined {}
 
 explore: cunning_derived_table {}
+
+explore: district_comparison {}
