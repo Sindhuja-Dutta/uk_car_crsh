@@ -28,16 +28,16 @@ ORDER BY 1
     type: string
     sql: ${TABLE}.lower_district ;;
     link: {
-      label: "desired label name"
+      label: "Go to Dashboard for {{value}}"
       url: "/dashboards/117?District%20Council%20Filter={{ value }}"
-#       icon_url: "url_of_an_image_file"
+      icon_url: "http://looker.com/favicon.ico"
     }
   }
 
 
   dimension: derived_district {
     label: "District"
-    hidden: yes
+#     hidden: yes
     primary_key: yes
     # description: "Unique ID for each user that has ordered"
     type: string
@@ -49,6 +49,13 @@ ORDER BY 1
     # description: "Unique ID for each user that has ordered"
     type: string
     sql: ${TABLE}.higher_district ;;
+    link: {
+      label: "Go to Dashboard for {{value}}"
+      url: "/dashboards/117?District%20Council%20Filter={{ value }}"
+      icon_url: "http://looker.com/favicon.ico"
+  }
+
+
   }
 
   dimension: derived_density {

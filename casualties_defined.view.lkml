@@ -1,6 +1,6 @@
 # If necessary, uncomment the line below to include explore_source.
 
-# include: "uk_accidents.model.lkml"
+include: "uk_accidents.model.lkml"
 
 view: casualties_defined {
   label: "Casualties"
@@ -110,4 +110,9 @@ view: casualties_defined {
     type: count
   }
 
+  measure: casualties_per_capita {
+    type: number
+    sql: ${casualty_count}/${districts_defined.SQL_TABLE_NAME.all}
+ ;;
+  }
   }

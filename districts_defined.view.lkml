@@ -49,10 +49,12 @@ view: districts_defined {
       sql: ${district} ;;
       html: <div style="width: 200px; text-align: center; margin: auto">
       <img src=
-      "https://looker-feeling-lucky.herokuapp.com/api.php?q={{ value | replace: '%', ' ' | url_param_escape }}%25council%25logo"
-      alt="{{value}}" style="height: 150px; width: 150px; border-radius: 10px; margin-bottom: 5px;" />
+      "https://looker-feeling-lucky.herokuapp.com/api.php?q={{ value | replace: '%', ' ' | url_param_escape }}%25district%25council"
+      alt="{{value}}" style="height: 150px; max-width: 100%; height: 100px; border-radius: 10px; margin-bottom: 5px;" />
       </div> ;;
     }
+
+
   measure: count {
     type: count
   }
