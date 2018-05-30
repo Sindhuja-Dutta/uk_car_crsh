@@ -54,8 +54,10 @@ view: casualties_defined {
       hidden: yes
       primary_key: yes
       type: string
-      sql: CONCAT(${casualties_defined.accident_index},${casualties_defined.vehicle_reference}) ;;
+      sql: CONCAT(${casualties_defined.accident_index},${casualties_defined.casualty_reference}) ;;
     }
+#   sql: CONCAT(${casualties_defined.accident_index},${casualties_defined.vehicle_reference}) ;; changing this Monday night
+
     dimension: accident_index {}
     dimension: age_band {
       label: "Casualty Age Band"

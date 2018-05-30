@@ -27,7 +27,7 @@ view: accidents {
     type: string
     primary_key: yes
     sql: ${TABLE}.Accident_Index ;;
-#     drill_fields: [vehicles_defined_2.vehicles_primary_key, vehicle_make_model.vehicle_brand, vehicle_make_model.vehicle_model]
+     drill_fields: [casualties_defined.accident_index]
   }
 
   dimension: accident_severity {
