@@ -417,13 +417,13 @@ dimension: weather_conditions {
 
 measure: count {
   type: count
-  drill_fields: [accident_index, location_streetview, date_date,  date_day_of_week, time, accident_severity, number_of_casualties, carriageway_hazards, road_type, special_conditions_at_site, road_surface_conditions, number_of_vehicles, light_conditions, weather_conditions, junction_detail, vehicle_make_model.vehicle_image, vehicle_make_model.vehicle_brand, vehicle_make_model.vehicle_model, speed_limit]
+  drill_fields: [accidents.accident_index, location_streetview, date_date,  date_day_of_week, time, accident_severity, number_of_casualties, carriageway_hazards, road_type, special_conditions_at_site, road_surface_conditions, number_of_vehicles, light_conditions, weather_conditions, junction_detail, vehicle_make_model.vehicle_image, vehicle_make_model.vehicle_brand, vehicle_make_model.vehicle_model, speed_limit]
+#   link: {label: "Accidents" url: "{{link}}&pivots=accidents.accident_index"}
 
-  link: {
-    label: "Map Visualisation"
-    url: "https://dcl.dev.looker.com/explore/uk_accidents/accidents?qid=N4CACbGi5LLNsHAQcdiVvv&toggle=dat,vis"
-
-  }
+#   link: {
+#     label: "Map Visualisation"
+#     url: "https://dcl.dev.looker.com/explore/uk_accidents/accidents?qid=N4CACbGi5LLNsHAQcdiVvv&toggle=dat,vis"
+# }
 
 }
 
