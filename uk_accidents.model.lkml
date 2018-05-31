@@ -27,6 +27,13 @@ explore: accidents {
     # sql: LEFT JOIN `UK_Car_Crashes.Local_Authority_District` AS district ON accidents.Local_Authority__District_ = district.code LEFT JOIN `indigo-bazaar-192612.Looker_Scratch.LR_5BX85TOSPVP2XXGDZ10WE_districts_defined` AS districts_defined ON districts_defined.district = district.label
     relationship: one_to_many
   }
+
+  join: cdt_backup {
+    sql: LEFT JOIN ${cdt_backup.SQL_TABLE_NAME} as cdt_backup ON ${cdt_backup.district_for_size} = ${districts_defined.district}  ;;
+    relationship: one_to_one
+  }
+
+
   join: cunning_derived_table {
     sql: LEFT JOIN ${cunning_derived_table.SQL_TABLE_NAME} as cunning_derived_table ON ${cunning_derived_table.derived_district} = ${districts_defined.district}  ;;
     relationship: one_to_one
@@ -124,3 +131,5 @@ explore: districts_defined {}
 explore: cunning_derived_table {}
 
 explore: district_comparison {}
+
+explore: cdt_backup {}

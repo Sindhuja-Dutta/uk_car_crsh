@@ -110,9 +110,19 @@ view: casualties_defined {
     type: count
   }
 
-  measure: casualties_per_capita {
-    type: number
-    sql: ${casualty_count}/${districts_defined.SQL_TABLE_NAME.all}
- ;;
-  }
+#   measure: casualty_population {
+#     type: number
+#     sql: ${districts_defined.SQL_TABLE_NAME}.total_population ;;
+# }
+
+# measure: cd_pop {
+#   type: number
+#   sql: ${districts_defined.SQL_TABLE_NAME}.total_population ;;
+# }
+#
+#   measure: casualties_per_capita {
+#     type: number
+#     sql: ${casualty_count}/${cd_pop}
+#  ;;
+#   }
   }

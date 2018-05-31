@@ -1,7 +1,7 @@
 view: local_authority_data {
   sql_table_name: UK_Car_Crashes.Local_Authority_Data ;;
 
-  dimension: all {
+  dimension: total_population {
     type: number
     sql: ${TABLE}.`All` ;;
   }
