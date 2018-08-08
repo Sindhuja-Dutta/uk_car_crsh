@@ -2,7 +2,7 @@ connection: "gavin_dcl_thesis"
 
 
 include: "*.view.lkml"         # include all views in this project
-include: "*.dashboard.lookml"  # include all dashboards in this project
+# include: "*.dashboard.lookml"  # include all dashboards in this project
 
 explore: accidents {
 
@@ -39,7 +39,7 @@ explore: accidents {
     relationship: one_to_one
   }
   join: vehicle_make_model {
-    sql_on:  CONCAT(${vehicles_defined_2.accident_index},${vehicles_defined_2.vehicle_reference}) = ${vehicle_make_model.make_model_key} ;;
+    sql_on:  CONCAT(${casualties_defined.accident_index},${casualties_defined.vehicle_reference}) = ${vehicle_make_model.make_model_key} ;;
   relationship: one_to_one
   }
 }
