@@ -1,11 +1,12 @@
 # If necessary, uncomment the line below to include explore_source.
-# include: "uk_accidents.model.lkml"
+include: "uk_accidents.model.lkml"
+
 
 view: Complex_pdt {
   derived_table: {
     explore_source: accidents {
+      column: accident_index {}
       column: count { field: districts_defined.count }
-      column: population_density_tier { field: districts_defined.population_density_tier }
       column: total_population { field: districts_defined.total_population }
       column: density { field: districts_defined.density }
       column: accident_severity {}
@@ -27,10 +28,12 @@ view: Complex_pdt {
     label: "Accident District Count"
     type: number
   }
-  dimension: population_density_tier {
-    label: "Accident District Population Density Tier"
-    type: tier
+
+  dimension: accident_index {
+    label: "Accident index"
+    type: number
   }
+
   dimension: total_population {
     label: "Accident District District Population"
     type: number
